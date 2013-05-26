@@ -2,7 +2,6 @@
 require 'globaldefs.php';
 require 'lcfunctions.php';
 
-
 /************************************************************
 Controller Name:  Login
 Actions        :  Index,authUser,signUp,addUser,logout
