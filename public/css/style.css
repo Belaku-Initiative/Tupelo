@@ -1,0 +1,88 @@
+<style type="text/css">
+		
+        .r1Div {
+            height: 150px; width: 32%; float: left;
+        }
+        .r2Div {
+            height: 400px; width: 32%; float: left;
+        }
+		.btnDiv{
+			height: 100; width: 48%; float: left;
+		}
+		.btnDivSubmit{
+			height: 100px; width: 70%;float: left;
+		}
+		.btnDivFb{
+			height: 50px; width: 30%; float: right;
+		}
+		.btnMainDiv{
+			height: 50px; width: 30%; float: left ;
+		}
+		
+        #divHeading {
+            text-align:center;
+            text-emphasis-style:filled;
+            text-decoration:solid;
+            
+        }
+		#teamMembers {
+			position:absolute; bottom:0; text-align:center;
+			width:100%;
+		}
+		
+		.circular {
+			width: 70px;
+			height: 70px;
+			border-radius: 150px;
+			-webkit-border-radius: 150px;
+			-moz-border-radius: 150px;
+			box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+			-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+			-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+			display: inline-block;
+		}
+
+		.circular img {
+			opacity: 0;
+			filter: alpha(opacity=0);
+		}
+		
+		/*Button link styles*/
+		.button a:link, .button a:visited {
+			color: #eee;
+			background-color:#1e5184;
+			font-size:1em;
+			font-weight:bolder;
+			text-decoration: none;
+			border-bottom:0.1em solid #555;
+			border-right:0.1em solid #555;
+			border-top:0.1em solid #ccc;
+			border-left:0.1em solid #ccc;
+			margin: 0.2em;
+			padding:0.2em;
+			display:block;
+		}
+		.button a:hover {
+			background-color:#003366;
+			color:#999;
+			border-top:0.1em solid #777;
+			border-left:0.1em solid #777;
+			border-bottom:0.1em solid #aaa;
+			border-right:0.1em solid #aaa;
+			padding:0.2em;
+			margin: 0.2em;
+		}
+		
+		/* Rounded Corner */
+		.txtBox {
+			border:2px solid #456879;
+			border-radius:10px;
+			height: 22px;
+			width: 230px;
+		}
+		
+		.font {
+			color:white;
+			weight:bold;
+		}
+    </style>

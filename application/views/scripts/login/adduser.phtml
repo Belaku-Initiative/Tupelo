@@ -1,0 +1,69 @@
+<style type="text/css">
+.error
+{ color:red; }
+
+html { 
+	background: url('<?=$this->baseUrl('images/chalkWallPlain.jpg')?>') no-repeat ; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+	#homediv{
+		height: 85px; width: 100%; float: right;
+	}
+</style>
+
+<script>
+		FB.logout(function(response) {
+			<?php 
+			session_start();
+			//remove PHPSESSID from browser
+			if ( isset( $_COOKIE[session_name()] ) )
+				setcookie( session_name(), "", time()-3600, "/");
+			//clear session from globals
+			$_SESSION = array();
+			//clear session from disk
+			setcookie (session_id(), "", time() - 3600);
+			session_destroy();
+		 	?>
+		});
+</script>
+
+<br /><br />
+<div id=homediv align="right">
+	<a href='<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>'><img height="75px" width="75px" src='<?=$this->baseUrl('images/home.jpg')?>' style="text-decoration:none"></img></a>
+</div>
+<div id="view-content">
+	<p>View script for controller <b>Signup</b> and script/action name <b>adduser</b></p>
+</div>
+
+An email has been sent to your mail id. Please verify.
+<div align='right'><a href="<?php echo $this->url(array('controller' => 'Login', 'action' => 'index'),null,false) ?>" onclick="FB.logout();">Logout</a></div>
+
+<script>		
+        window.fbAsyncInit = function() {
+            FB.init({
+              appId      : '343333115786778', // App ID
+              channelUrl : 'http://stubees.com/scooby/public/Login', // Channel File
+              status     : true, // check login status
+              cookie     : true, // enable cookies to allow the server to access the session
+              xfbml      : true  // parse XFBML
+            });
+	        FB.Event.subscribe('auth.login', function(response) {
+	        	window.location.reload();
+	        });
+	        FB.Event.subscribe('auth.logout', function(response) {
+	        	//window.location='http://bel.com/Login/';
+		    	//window.location.reload();
+		    });
+        };
+        // Load the SDK Asynchronously
+        (function(d, s, id){
+             var js, fjs = d.getElementsByTagName(s)[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement(s); js.id = id;
+             js.src = "//connect.facebook.net/en_US/all.js";
+             fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+</script>

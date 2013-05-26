@@ -1,0 +1,240 @@
+<style type="text/css">
+.error
+{ color:red; }
+
+html { 
+	background: url('<?=$this->baseUrl('images/chalkWallPlain.jpg')?>') no-repeat ; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+#homediv{
+		height: 85px; width: 100%; float: right;
+	}
+	
+.r2Div {
+        height: 400px; width: 90%; float: left;
+    }
+#centerdiv {     
+		width:700px;
+		height:275px;
+		position:absolute;
+		left:50%;
+		top:50%;
+		margin:-125px 0 0 -350px; 
+		background-color:white;
+		border-width:3px;
+		border-style:solid;
+		border-color:blue
+}
+.txtBox {
+			border:2px solid #456879;
+			border-radius:10px;
+			height: 22px;
+			width: 230px;
+		}
+#submit{
+	color: #eee;
+	background-color:#1e5184;
+	font-size:1em;
+	font-weight:bolder;
+	text-decoration: none;
+	border-bottom:0.1em solid #555;
+	border-right:0.1em solid #555;
+	border-top:0.1em solid #ccc;
+	border-left:0.1em solid #ccc;
+	margin: 0.2em;
+	padding:0.2em;
+	display:block;
+}
+
+#teamMembers {
+		position:absolute; bottom:0; text-align:center;
+		width:100%;
+	}
+		
+	.circular {
+		width: 70px;
+		height: 70px;
+		border-radius: 150px;
+		-webkit-border-radius: 150px;
+		-moz-border-radius: 150px;
+		box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+		-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+		-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+		display: inline-block;
+	}
+
+	.circular img {
+		opacity: 0;
+		filter: alpha(opacity=0);
+	}
+</style>
+
+<script>
+$(document).ready(function(){
+
+	var firstName = $("#firstName");
+	var lastName = $("#lastName");
+	var gender = $("#gender");
+	var contact = $("#contact");
+	var email = $("#email");
+	var password = $("#password");
+	var retypePassword = $("#retypePassword");
+
+  	var firstNameDetails = $("#firstNameDetails");
+	var lastNameDetails = $("#lastNameDetails");
+	var genderDetails = $("#genderDetails");
+	var contactDetails = $("#contactDetails");
+	var emailDetails = $("#emailDetails");
+  	var passwordDetails = $("#passwordDetails");
+  	var retypePasswordDetails = $("#retypePasswordDetails");
+
+  	var submit = $("#submit");
+
+  	firstName.blur(validateFirstName);
+  	lastName.blur(validateLastName);
+  	gender.blur(validateGender);
+  	contact.blur(validateContact);
+  	email.blur(validateEmail);
+  	password.blur(validatePassword);
+  	retypePassword.blur(validateRetypePassword);
+	
+  	firstName.keyup(validateFirstName);
+  	lastName.keyup(validateLastName);
+  	gender.keyup(validateGender);
+  	contact.keyup(validateContact);
+  	email.keyup(validateEmail);
+  	password.keyup(validatePassword);
+  	retypePassword.keyup(validateRetypePassword);
+	
+  	$(this).submit(function(){
+		if(validateFirstName() & validateLastName() & validateGender() & validateContact() & 
+					validateEmail() & validatePassword() & validateRetypePassword() ) {
+			return true;
+		} else {
+			return false;
+		}	
+  	});  	
+
+	function validateFirstName(){
+		if (firstName.val()!= "" && firstName.val().length < 30) {
+			firstName.removeClass("error");
+			firstNameDetails.text("So we can validate you");
+			firstNameDetails.removeClass("error");
+			return true;
+		} else {
+			firstName.addClass("error");
+			firstNameDetails.text("Please enter valid first name less than 30 characters");
+			firstNameDetails.addClass("error");
+			return false;
+		}
+	}
+
+	function validateLastName(){
+		if (lastName.val()!= "" && lastName.val().length < 30) {
+			lastName.removeClass("error");
+			lastNameDetails.text("So we can validate you");
+			lastNameDetails.removeClass("error");
+			return true;
+		} else {
+			lastName.addClass("error");
+			lastNameDetails.text("Please enter valid last name less than 30 characters");
+			lastNameDetails.addClass("error");
+			return false;
+		}
+	}
+
+	function validateContact(){
+		if (contact.val()!= "" && lastName.val().length < 20) {
+			contact.removeClass("error");
+			contactDetails.text("Enter your phone number in format 'xxx-xxx-xxxx'");
+			contactDetails.removeClass("error");
+			return true;
+		} else {
+			contact.addClass("error");
+			contactDetails.text("Please enter a valid contact number");
+			contactDetails.addClass("error");
+			return false;
+		}
+	}
+	function validateEmail() {
+		var myEmail = $("#email").val();
+		var myRegex = /^[a-zA-Z0-9]+[a-zA-Z0-9_.-]+[a-zA-Z0-9_­-]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9­]+.[a-z]{2,4}$/;
+		if (myRegex.test(myEmail)) {
+			email.removeClass("error");
+			emailDetails.text("So we can validate you");
+			emailDetails.removeClass("error");
+			return true;
+		} else {
+			email.addClass("error");
+			emailDetails.text("Please enter valid email id");
+			emailDetails.addClass("error");
+			return false;
+		}	
+	}
+	function validateGender () {
+		if (gender.val() == "M" || gender.val() == "F" || gender.val() == "O" || gender.val() == "m" || gender.val() == "f" || gender.val() == "o" ) {
+			gender.removeClass("error");
+			genderDetails.text("Male(M)/Female(F)/Other(O)");
+			genderDetails.removeClass("error");
+			return true;
+		} else {
+			gender.addClass("error");
+			genderDetails.text("Please enter M or F or O!");
+			genderDetails.addClass("error");
+			return false;
+		}
+	}
+
+	function validatePassword () {
+		if (password.val().length >= 8) {
+			password.removeClass("error");
+			passwordDetails.text("Must be 8 or more characters");
+			passwordDetails.removeClass("error");
+			return true;
+		} else {
+			password.addClass("error");
+			passwordDetails.text("8 or more characters please!");
+			passwordDetails.addClass("error");
+			return false;
+		}
+	}
+	function validateRetypePassword () {
+		if ((password.val() === retypePassword.val()) && (password.val()!= "")) {
+			retypePassword.removeClass("error");
+			retypePasswordDetails.text("Re-enter the password");
+			retypePasswordDetails.removeClass("error");
+			return true;
+		} else {
+			retypePassword.addClass("error");
+			retypePasswordDetails.text("Passwords do not match!");
+			retypePasswordDetails.addClass("error");
+			return false;
+		}
+	}		
+});
+</script>
+<div id=homediv align="right">
+	<a href='<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>'><img height="75px" width="75px" src="<?=$this->baseUrl('images/home.jpg')?>" style="text-decoration:none"></img></a>
+</div>
+
+<div id=centerdiv >
+<?php echo $this->form; ?>
+</div>
+
+<div>
+	<div class="r2Div" style="display: inline-block;">
+	<center>
+		<div id="teamMembers">
+		<div><img src="<?=$this->baseUrl('images/busyBees.png')?>" alt="" style="width:140px;height:60px;"/></div>
+		<div class="circular" style="background:url(<?=$this->baseUrl('images/scooby.jpg')?>) no-repeat;background-size: 70px 70px;"><img src="images/scooby.jpg" alt="" /></div>
+		<div class="circular" style="background:url(<?=$this->baseUrl('images/tintin.jpg')?>) no-repeat;background-size: 70px 70px;"><img src="images/tintin.jpg" alt="" /></div>
+		<div class="circular" style="background:url(<?=$this->baseUrl('images/dexter.jpg')?>) no-repeat;background-size: 70px 70px;"><img src="images/dexter.jpg" alt="" /></div>
+		<div class="circular" style="background:url(<?=$this->baseUrl('images/popeye.jpg')?>) no-repeat;background-size: 70px 70px;"><img src="images/popeye.jpg" alt="" /></div>
+		<div class="circular" style="background:url(<?=$this->baseUrl('images/batman.jpg')?>) no-repeat;background-size: 70px 70px;"><img src="images/batman.jpg" alt="" /></div>
+		</div>
+	</center>
+	</div>
+</div>

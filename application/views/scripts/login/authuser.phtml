@@ -1,0 +1,95 @@
+<style type="text/css">
+
+html { 
+	background: url('<?=$this->baseUrl('images/chalkWallPlain.jpg')?>') no-repeat ; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+#homediv{
+	height: 85px; width: 100%; float: right;
+	}
+	
+#centerdiv {     
+	width:700px;
+	height:250px;
+	position:absolute;
+	left:50%;
+	top:50%;
+	margin:-125px 0 0 -350px; 
+	background-color:white;
+	border-width:3px;
+	border-style:solid;
+	border-color:blue
+}
+
+#teamMembers {
+	position:absolute; bottom:0; text-align:center;
+	width:100%;
+}
+		
+.circular {
+	width: 70px;
+	height: 70px;
+	border-radius: 150px;
+	-webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+	-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+	-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+	display: inline-block;
+}
+
+.circular img {
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+</style>
+
+<div id=homediv align="right">
+	<a href='<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>'><img height="75px" width="75px" src="<?=$this->baseUrl('images/home.jpg')?>" style="text-decoration:none"></img></a>
+</div>
+
+<div id=centerdiv >
+	<?php if($this->sendValidateEmail) : ?>
+		<center>
+		<p>Welcome to Travel App</p>
+		</center>
+		Your Email is Not validated.<br />
+		<a href='<?php echo $this->url(array('controller' => 'Login', 'action' => 'useremailvalidation'), null, false)?>?uuid=aaa
+		&pid=<?php echo $this->userIndex ?>'>
+		<button type="button"> Resend Email</button></a>
+	<?php endif; ?>
+	<?php if($this->loginFailed) {?>
+	<div>
+		<center>
+			<font color='red'>Login Failed</font>
+		</center>
+	</div>
+<?php }else{ ?>
+		<div id=homediv align="right">
+			<a href="<?php echo $this->url(array('controller' => 'Login', 'action' => 'index'), null, false)?>" onclick="FB.logout();"><img height="45" width="45px" src='<?=$this->baseUrl('images/logoutIcon.png')?>' style="text-decoration:none"></img></a>
+		</div>
+		<h3>Welcome <?php echo $this->userFirstName ;?> <?php echo $this->userLastName ;?></h3> <br/>
+		<h3>E-Mail: <?php echo $this->userEMail ;?></h3>
+
+<?php } ?>
+</div>
+<!-- Setting uuid to aaa so that handling in the action can be easy -->
+
+<div>
+	<div class="r2Div" style="display: inline-block;">
+	<center>
+		<div id="teamMembers">
+		<div><img src="<?=$this->baseUrl('images/busyBees.png')?>" alt="" style="width:140px;height:60px;"/></div>
+		<div class="circular" style="background:url(<?=$this->baseUrl('images/scooby.jpg')?>) no-repeat;background-size: 70px 70px;"><img src="images/scooby.jpg" alt="" /></div>
+		<div class="circular" style="background:url(<?=$this->baseUrl('images/tintin.jpg')?>) no-repeat;background-size: 70px 70px;"><img src="images/tintin.jpg" alt="" /></div>
+		<div class="circular" style="background:url(<?=$this->baseUrl('images/dexter.jpg')?>) no-repeat;background-size: 70px 70px;"><img src="images/dexter.jpg" alt="" /></div>
+		<div class="circular" style="background:url(<?=$this->baseUrl('images/popeye.jpg')?>) no-repeat;background-size: 70px 70px;"><img src="images/popeye.jpg" alt="" /></div>
+		<div class="circular" style="background:url(<?=$this->baseUrl('images/batman.jpg')?>) no-repeat;background-size: 70px 70px;"><img src="images/batman.jpg" alt="" /></div>
+		</div>
+	</center>
+	</div>
+</div>
