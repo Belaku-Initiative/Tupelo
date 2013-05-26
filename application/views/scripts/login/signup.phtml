@@ -216,11 +216,13 @@ $(document).ready(function(){
 	}		
 });
 </script>
+
 <div id=homediv align="right">
 	<a href='<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>'><img height="75px" width="75px" src="<?=$this->baseUrl('images/home.jpg')?>" style="text-decoration:none"></img></a>
 </div>
 
 <div id=centerdiv >
+<?php if(isset($this->errorMessage)){ echo $this->errorMessage; }?>
 <?php echo $this->form; ?>
 </div>
 

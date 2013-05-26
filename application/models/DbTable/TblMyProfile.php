@@ -13,3 +13,4 @@ class Application_Model_DbTable_TblMyProfile extends Zend_Db_Table_Abstract
 
 
 }
+

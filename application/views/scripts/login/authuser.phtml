@@ -70,7 +70,7 @@ html {
 	</div>
 <?php }else{ ?>
 		<div id=homediv align="right">
-			<a href="<?php echo $this->url(array('controller' => 'Login', 'action' => 'index'), null, false)?>" onclick="FB.logout();"><img height="45" width="45px" src='<?=$this->baseUrl('images/logoutIcon.png')?>' style="text-decoration:none"></img></a>
+			<a href="<?php echo $this->url(array('controller' => 'Login', 'action' => 'logout'), null, false)?>"><img height="45" width="45px" src='<?=$this->baseUrl('images/logoutIcon.png')?>' style="text-decoration:none"></img></a>
 		</div>
 		<h3>Welcome <?php echo $this->userFirstName ;?> <?php echo $this->userLastName ;?></h3> <br/>
 		<h3>E-Mail: <?php echo $this->userEMail ;?></h3>

@@ -1,13 +1,5 @@
 <head>
-    <title>Stubees</title>
- 
-	<script>
-	FB.logout(function(response) {
-		<?php Zend_Session::destroy( true ); ?>
-		//window.location.reload();
-	});
-	</script>
-
+	<title>Stubees</title>
 	<style>
 		html { 
 		  background: url('./images/stubeesWall.jpg') no-repeat ; 
@@ -88,9 +80,7 @@
 		<div id="txtLogs" class="r1Div">
 		</div>
 		
-		<div class="r1Div">
-			
-		</div>
+		<div class="r1Div"></div>
 
 		<div class="r1Div">
 			<div class="btnMainDiv">
@@ -98,21 +88,34 @@
 			</div>
 			<div class="btnMainDiv">
 				<center>
-						<span class="button"> 
-							<a title="Login" href='<?php echo $this->url(array('controller' => 'Login', 'action' => 'index'), null, false)?>'>
-								Login
-							</a>
-						</span>
+						<?php if ($this->userLoggedIn == "true") {?>
+							<span class="button" style="background-color:white;">
+							Welcome <?php echo $this->userName; ?>
+							</span>
+						<?php } else { ?>
+							<span class="button">
+								<a title="Login" href='<?php echo $this->url(array('controller' => 'Login', 'action' => 'index'), null, false)?>'>
+									Login
+								</a>
+							</span>	
+						<?php } ?>
+						
 						
 				</center>
 			</div>
 			<div class="btnMainDiv">
 				<center>
-						<span class="button"> 
-						<a title="Sign Up" href='<?php echo $this->url(array('controller' => 'Login', 'action' => 'signup'), null, false)?>'>
-							Sign Up
-						</a>
-						</span>
+						<?php if ($this->userLoggedIn == "true") { ?>
+							<div id=homediv align="right">
+								<a href="<?php echo $this->url(array('controller' => 'Login', 'action' => 'logout'), null, false)?>"><img height="45" width="45px" src='<?=$this->baseUrl('images/logoutIcon.png')?>' style="text-decoration:none"></img></a>
+							</div>
+						<?php } else { ?>	
+							<span class="button"> 
+							<a title="Sign Up" href='<?php echo $this->url(array('controller' => 'Login', 'action' => 'signup'), null, false)?>'>
+								Sign Up
+							</a>
+							</span>
+						<?php } ?>	
 				</center>
 			</div>
 			<div style="height: 75px; width: 31%; float: left">

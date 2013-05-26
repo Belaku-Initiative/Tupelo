@@ -449,3 +449,14 @@ Stack trace:
 [25-May-2013 18:56:13 America/Denver] PHP Warning:  Creating default object from empty value in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 408
 [25-May-2013 18:59:12 America/Denver] PHP Warning:  Creating default object from empty value in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 408
 [25-May-2013 19:04:10 America/Denver] PHP Notice:  A session had already been started - ignoring session_start() in /home1/stubeesc/public_html/scooby/application/views/scripts/login/adduser.phtml on line 20
+[26-May-2013 00:03:13 America/Denver] PHP Notice:  Undefined index: name in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 625
+[26-May-2013 00:05:12 America/Denver] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home1/stubeesc/public_html/zf/library/Zend/Session.php on line 753
+[26-May-2013 00:11:52 America/Denver] PHP Parse error:  syntax error, unexpected '{' in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 29
+[26-May-2013 00:55:03 America/Denver] PHP Parse error:  syntax error, unexpected '}' in /home1/stubeesc/public_html/scooby/application/controllers/IndexController.php on line 47
+[26-May-2013 03:53:31 America/Denver] PHP Notice:  Undefined variable: email in /home1/stubeesc/public_html/scooby/application/forms/Resetpwd.php on line 79
+[26-May-2013 03:53:31 America/Denver] PHP Notice:  Undefined variable: emailDetails in /home1/stubeesc/public_html/scooby/application/forms/Resetpwd.php on line 79
+[26-May-2013 03:54:29 America/Denver] PHP Notice:  Undefined index: email in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 461
+[26-May-2013 13:07:19 America/Denver] PHP Parse error:  syntax error, unexpected '{' in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 68
+[26-May-2013 13:46:51 America/Denver] PHP Parse error:  syntax error, unexpected ''is_FB_User'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 223
+[26-May-2013 14:21:33 America/Denver] PHP Parse error:  syntax error, unexpected 'button' (T_STRING), expecting ',' or ';' in /home1/stubeesc/public_html/scooby/application/views/scripts/login/resetpwd.phtml on line 92
+[26-May-2013 14:43:50 America/Denver] PHP Parse error:  syntax error, unexpected '<' in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 656

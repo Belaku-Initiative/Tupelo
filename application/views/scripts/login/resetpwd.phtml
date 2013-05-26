@@ -77,27 +77,37 @@ html {
 		}
 </style>
 
+
 <div id=homediv align="right">
 	<a href='<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>'><img height="75px" width="75px" src="<?=$this->baseUrl('images/home.jpg')?>" style="text-decoration:none"></img></a>
 </div>
 <!--  Flag set implies user has already entered a valid email, so display link to main page -->
 <div id=centerdiv >
+<?php if(isset($this->errorMessage)){ echo $this->errorMessage; }?>
 <?php 
-    if($this->flag == 0)
+    if($this->emailFoundFlag == 0)
 	{
-	   echo $this->errormsg;
-	   echo $this->form; 
-	   return;
+	   if(!$this->ifFbUser){  //For FB users we do not display the form to reset password
+		   echo $this->form; 
+		}
+		echo "<br>
+		<a title=\"<< Go Back\" href='".$this->url(array('controller' => 'Login', 'action' => 'index'), null, false)."'>
+				<< Go Back 
+		</a>";
+		return; //Used to avoid subsequent html content
 	}
 ?>
 
 	<div id="view-content">
 		<p>A email has been sent to you with the link to reset your password</p>
 	</div>
-
+	<a title="<< Go Back" href='<?php echo $this->url(array('controller' => 'Login', 'action' => 'index'), null, false)?>'>
+			<< Go Back 
+	</a>
+	
 	
 </div>
-
+	
 <div>
 	<div class="r2Div" style="display: inline-block;">
 	<center>

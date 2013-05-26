@@ -11,3 +11,4 @@ class Application_Model_TableFunctions
 		return $rows;
 	}
 }
+
