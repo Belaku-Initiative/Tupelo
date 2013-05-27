@@ -1,148 +1,49 @@
-
-<style type="text/css">
-	html { 
-		  background:  url('<?=$this->baseUrl('images/chalkWallPlain.jpg')?>') no-repeat ; 
-		  -webkit-background-size: cover;
-		  -moz-background-size: cover;
-		  -o-background-size: cover;
-		  background-size: cover;
-	}
-	.error
-	{ color:red; }
-
-	#centerdiv {     
-		width:600px;
-		height:400px;
-		position:absolute;
-		left:50%;
-		top:35%;
-		margin:-100px 0 0 -300px; 
-		background-color:white;
-		border-width:3px;
-		border-style:solid;
-		border-color:blue;
-	}
-	
-	#centerdiv_login {     
-		width:600px;
-		height:200px;
-		position:absolute;
-		left:50%;
-		top:50%;
-		margin:-100px 0 0 -300px; 
-		background-color:white;
-		border-width:3px;
-		border-style:solid;
-		border-color:blue;
-	}
-	
-	.r2Div {
-        height: 400px; width: 90%; float: left;
-    }
-	#divHeading {
-		text-align:center;
-		text-emphasis-style:filled;
-		text-decoration:solid;
-		
-	}
-	#homediv{
-		height: 85px; width: 100%; float: right;
-	}
-	.btnDiv{
-			height: 100; width: 40%; float: left;
-		}
-		
-	#teamMembers {
-		position:absolute; bottom:0; text-align:center;
-		width:100%;
-	}
-		
-	.circular {
-		width: 70px;
-		height: 70px;
-		border-radius: 150px;
-		-webkit-border-radius: 150px;
-		-moz-border-radius: 150px;
-		box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-		-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-		-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-		display: inline-block;
-	}
-
-	.circular img {
-		opacity: 0;
-		filter: alpha(opacity=0);
-	}
-	
-	/*Button link styles*/
-		.button a:link, .button a:visited {
-			color: #eee;
-			background-color:#1e5184;
-			font-size:1em;
-			font-weight:bolder;
-			text-decoration: none;
-			border-bottom:0.1em solid #555;
-			border-right:0.1em solid #555;
-			border-top:0.1em solid #ccc;
-			border-left:0.1em solid #ccc;
-			margin: 0.2em;
-			padding:0.2em;
-			display:block;
-		}
-		.button a:hover {
-			background-color:#003366;
-			color:#999;
-			border-top:0.1em solid #777;
-			border-left:0.1em solid #777;
-			border-bottom:0.1em solid #aaa;
-			border-right:0.1em solid #aaa;
-			padding:0.2em;
-			margin: 0.2em;
-		}
-		
-		#email {
-			border:2px solid #456879;
-			border-radius:10px;
-			height: 22px;
-			width: 230px;
-		}
-		
-		#password {
-			border:2px solid #456879;
-			border-radius:10px;
-			height: 22px;
-			width: 230px;
-		}
-		
-		#submit{
-			color: #eee;
-			background-color:#1e5184;
-			font-size:1em;
-			font-weight:bolder;
-			text-decoration: none;
-			border-bottom:0.1em solid #555;
-			border-right:0.1em solid #555;
-			border-top:0.1em solid #ccc;
-			border-left:0.1em solid #ccc;
-			margin: 0.2em;
-			padding:0.2em;
-			display:block;
-		}
-		#submit a:hover {
-			background-color:#003366;
-			color:#999;
-			border-top:0.1em solid #777;
-			border-left:0.1em solid #777;
-			border-bottom:0.1em solid #aaa;
-			border-right:0.1em solid #aaa;
-			padding:0.2em;
-			margin: 0.2em;
-		}
-		
-</style>
-
 <script>
 $(document).ready(function(){
+
+	// AJAX START
+
+	$.ajaxSetup ({
+		cache: false
+	});
+
+	$("#signupButton button").click(function(){
+		$.ajax({url:"/Login/signup", 
+			
+		}).done(function(result){ 
+
+			$("#formSlot").html(result);
+
+		})
+		.fail(function(response, status, xhr) {
+			if (status == "error") {
+				if(typeof console != "undefined") {
+					console.log(xhr.status + " " + xhr.statusText);
+				}
+			}
+		});
+	});
+
+	$("#forgotPwdButton button").click(function(){
+		$.ajax({url:"/Login/resetpwd", 
+			
+		}).done(function(result){ 
+
+			$("#formSlot").html(result);
+
+		})
+		.fail(function(response, status, xhr) {
+			if (status == "error") {
+				if(typeof console != "undefined") {
+					console.log(xhr.status + " " + xhr.statusText);
+				}
+			}
+		});
+	});
+
+
+	// AJAX END
+
 	$("input").focus(function(){
     $(this).css("background-color","#cccccc");
   	});
@@ -201,6 +102,7 @@ $(document).ready(function(){
 	}		
 });
 
+/*
 FB.logout(function(response) {
 	alert("Session is destroyed");
 	<?php Zend_Session::destroy( true ); ?>
@@ -208,82 +110,107 @@ FB.logout(function(response) {
 FB.login(function(response) {
    // handle the response
  }, {scope: 'email'});
+*/
+
 </script>
 
 <?php if(isset($this->errorMessage)){ echo $this->errorMessage; }?>
-<?php if (!$this->user && !$this->regularUser) { ?>
+
+<?php if (!$this->user && !$this->regularUser): ?>
+
 <div id=homediv align="right">
-	<a href='<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>'><img height="75px" width="75px" src='<?=$this->baseUrl('images/home.jpg')?>' style="text-decoration:none"></img></a>
+	<a href='<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>'>
+		<img height="75px" width="75px" src='<?=$this->baseUrl('images/home.jpg')?>' style="text-decoration:none"></img>
+	</a>
 </div>
+
 <div id=centerdiv_login>
 	<div>
 		<div style="height: 110px; width: 80% ;float: left">
 		<?php echo $this->form; ?>
 		</div>
 		<div style="height: 110px; width: 15% ;float: left;top:50%;margin:30px 0 0 0;">
-		<center>
-		<a href="" onclick="FB.login(function(response){},{scope:'email'});" style="text-decoration:none"><img height="60px" width="60px" src= '<?=$this->baseUrl('images/fbLogo.png')?>' style="text-decoration:none"></img></a>
-		</center>
+			<center>
+				<a href="" onclick="FB.login(function(response){},{scope:'email'});" style="text-decoration:none">
+					<img height="60px" width="60px" src= '<?=$this->baseUrl('images/fbLogo.png')?>' style="text-decoration:none"></img>
+				</a>
+			</center>
 		</div>
 	</div>
-		<div class="btnDiv">
+	
+	<div class="btnDiv" id="signupButton">
 		<center>
 			<span class="button"> 
-			<a title="Sign Up" href='<?php echo $this->url(array('controller' => 'Login', 'action' => 'signup'), null, false)?>'>
-				New user? Sign up here 
-			</a>
+				<button type="button">New user? Sign up here</button>
 			</span>
 		</center>
-		</div>
+	</div>
 		
-		<div class="btnDiv">
+	<div class="btnDiv" id="forgotPwdButton">
 		<center>
 			<span class="button"> 
-			<a title="Forgot Password" href='<?php echo $this->url(array('controller' => 'Login', 'action' => 'resetpwd'), null, false)?>'>
-				Forgot Password ? 
-			</a>
+				<button type="button">Forgot Password ?</button>
 			</span>
 		</center>
-		</div>
-<?php if($this->loginFailed) {?>
-	<div>
-	<font color='red'>Login Failed</font>
 	</div>
-<?php }?>
 
+	<?php if($this->loginFailed): ?>
+		<div>
+			<font color='red'>Login Failed</font>
+		</div>
+	<?php endif; ?>
 </div>
-<?php }?>
-<?php if ($this->user) { ?>
-		<div id=homediv align="right">
-			<a href='<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>'><img height="75px" width="75px" src='<?=$this->baseUrl('images/home.jpg')?>' style="text-decoration:none"></img></a>
-		</div>
 
-		<div id=homediv align="right">
-			<a href="<?php echo $this->url(array('controller' => 'Login', 'action' => 'index'), null, false)?>" onclick="FB.logout();"><img height="45" width="45px" src='<?=$this->baseUrl('images/logoutIcon.png')?>' style="text-decoration:none"></img></a>
-		</div>
-		<div id=centerdiv >
-		<h3>Welcome <?php echo $this->userFirstName ;?> <?php echo $this->userLastName ;?></h3> <br/>
+<?php endif; ?>
+
+
+<?php if ($this->user): ?>
+	<div id="homediv" align="right">
+		<a href='<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>'>
+			<img height="75px" width="75px" src='<?=$this->baseUrl('images/home.jpg')?>' style="text-decoration:none"></img>
+		</a>
+	</div>
+
+	<div id="homediv" align="right">
+		<a href="<?php echo $this->url(array('controller' => 'Login', 'action' => 'index'), null, false)?>" onclick="FB.logout();">
+			<img height="45" width="45px" src='<?=$this->baseUrl('images/logoutIcon.png')?>' style="text-decoration:none"></img>
+		</a>
+	</div>
+
+	<div id="centerdiv">
+		<h3>Welcome <?php echo $this->userFirstName; ?> <?php echo $this->userLastName; ?></h3> <br/>
 		<h3>Photo: <img src=<?php echo $this->userPic ;?>></h3>
 		<h3>E-Mail: <?php echo $this->userEMail ;?></h3>
 		<h3>ID: <?php echo $this->userId ;?></h3>
 		<h3>Gender: <?php echo $this->userGender ;?></h3>
 		<pre><?php print_r($this->user_profile); ?></pre>
-<?php } elseif ($this->regularUser) { ?>
-		<div id=homediv align="right">
-			<a href='<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>'><img height="75px" width="75px" src='<?=$this->baseUrl('images/home.jpg')?>' style="text-decoration:none"></img></a>
-		</div>
+	</div>
 
-		<div id=homediv align="right">
-			<a href="<?php echo $this->url(array('controller' => 'Login', 'action' => 'index'), null, false)?>" onclick="FB.logout();"><img height="45" width="45px" src='<?=$this->baseUrl('images/logoutIcon.png')?>' style="text-decoration:none"></img></a>
-		</div>
-		<div id=centerdiv >
+<?php elseif ($this->regularUser): ?>
+		
+	<div id="homediv" align="right">
+		<a href='<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>'>
+			<img height="75px" width="75px" src='<?=$this->baseUrl('images/home.jpg')?>' style="text-decoration:none"></img>
+		</a>
+	</div>
+
+	<div id="homediv" align="right">
+		<a href="<?php echo $this->url(array('controller' => 'Login', 'action' => 'index'), null, false)?>" onclick="FB.logout();">
+			<img height="45" width="45px" src='<?=$this->baseUrl('images/logoutIcon.png')?>' style="text-decoration:none"></img>
+		</a>
+	</div>
+	
+	<div id="centerdiv" >
 		<p>WELCOME!!</p>
 		<h3>Welcome <?php echo $this->userFirstName ;?> <?php echo $this->userLastName ;?></h3> <br/>
 		<h3>E-Mail: <?php echo $this->userEMail ;?></h3>
+	</div>
 
-<?php } ?>
-</div>
+<?php endif; ?>
+
+<!--
 <script>
+	
           window.fbAsyncInit = function() {
             FB.init({
               appId      : '343333115786778', // App ID
@@ -308,19 +235,6 @@ FB.login(function(response) {
              js.src = "//connect.facebook.net/en_US/all.js";
              fjs.parentNode.insertBefore(js, fjs);
            }(document, 'script', 'facebook-jssdk'));
-        </script>
-
-<div>
-<div class="r2Div" style="display: inline-block;">
-<center>
-	<div id="teamMembers">
-	<div><img src='<?=$this->baseUrl('images/busyBees.png')?>' alt="" style="width:140px;height:60px;"/></div>
-	<div class="circular" style="background: url('<?=$this->baseUrl('images/scooby.jpg')?>') no-repeat;background-size: 70px 70px;"><img src="images/scooby.jpg" alt="" /></div>
-	<div class="circular" style="background: url('<?=$this->baseUrl('images/tintin.jpg')?>') no-repeat;background-size: 70px 70px;"><img src="images/tintin.jpg" alt="" /></div>
-	<div class="circular" style="background: url('<?=$this->baseUrl('images/dexter.jpg')?>') no-repeat;background-size: 70px 70px;"><img src="images/dexter.jpg" alt="" /></div>
-	<div class="circular" style="background: url('<?=$this->baseUrl('images/popeye.jpg')?>') no-repeat;background-size: 70px 70px;"><img src="images/popeye.jpg" alt="" /></div>
-	<div class="circular" style="background: url('<?=$this->baseUrl('images/batman.jpg')?>') no-repeat;background-size: 70px 70px;"><img src="images/batman.jpg" alt="" /></div>
-	</div>
-</center>
-</div>
-</div>
+    
+</script>
+-->

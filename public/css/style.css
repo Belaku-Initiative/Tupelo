@@ -1,88 +1,182 @@
-<style type="text/css">
-		
-        .r1Div {
-            height: 150px; width: 32%; float: left;
-        }
-        .r2Div {
-            height: 400px; width: 32%; float: left;
-        }
-		.btnDiv{
-			height: 100; width: 48%; float: left;
-		}
-		.btnDivSubmit{
-			height: 100px; width: 70%;float: left;
-		}
-		.btnDivFb{
-			height: 50px; width: 30%; float: right;
-		}
-		.btnMainDiv{
-			height: 50px; width: 30%; float: left ;
-		}
-		
-        #divHeading {
-            text-align:center;
-            text-emphasis-style:filled;
-            text-decoration:solid;
-            
-        }
-		#teamMembers {
-			position:absolute; bottom:0; text-align:center;
-			width:100%;
-		}
-		
-		.circular {
-			width: 70px;
-			height: 70px;
-			border-radius: 150px;
-			-webkit-border-radius: 150px;
-			-moz-border-radius: 150px;
-			box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-			-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-			-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-			display: inline-block;
-		}
+@import url('font-awesome.css');
 
-		.circular img {
-			opacity: 0;
-			filter: alpha(opacity=0);
-		}
+	body {
+		background: #999999;
+	}
+
+	.error { 
+		color:red; 
+	}
+
+    .r1Div {
+        height: 150px; width: 32%; float: left;
+    }
+    .r2Div {
+        height: 400px; width: 32%; float: left;
+    }
+	.btnDiv{
+		height: 100; width: 48%; float: left;
+	}
+	.btnDivSubmit{
+		height: 100px; width: 70%;float: left;
+	}
+	.btnDivFb{
+		height: 50px; width: 30%; float: right;
+	}
+	.btnMainDiv{
+		height: 50px; width: 30%; float: left ;
+	}
+	
+    #divHeading {
+        text-align:center;
+        text-emphasis-style:filled;
+        text-decoration:solid;
+        
+    }
+	
+	/* Rounded Corner */
+	.txtBox {
+		border:2px solid #456879;
+		border-radius:10px;
+		height: 22px;
+		width: 230px;
+	}
+	
+	.font {
+		color:white;
+		weight:bold;
+	}
+
+/* Login/index.phtml css START*/
+	#centerdiv {     
+		width:600px;
+		height:400px;
+		position:absolute;
+		left:50%;
+		top:35%;
+		margin:-100px 0 0 -300px; 
+		background-color:white;
+		border-width:3px;
+		border-style:solid;
+		border-color:blue;
+	}
+
+	#centerdiv_login {     
+		width:600px;
+		height:200px;
+		position:absolute;
+		left:50%;
+		top:50%;
+		margin:-100px 0 0 -300px; 
+		background-color:white;
+		border-width:3px;
+		border-style:solid;
+		border-color:blue;
+	}
+
+	#homediv {
+		height: 85px; width: 100%; float: right;
+	}
+
+	.btnDiv {
+		height: 100; width: 40%; float: left;
+	}
+
+	#email {
+		border:2px solid #456879;
+		border-radius:10px;
+		height: 22px;
+		width: 230px;
+	}
+	
+	#password {
+		border:2px solid #456879;
+		border-radius:10px;
+		height: 22px;
+		width: 230px;
+	}
+	
+	#submit{
+		color: #eee;
+		background-color:#1e5184;
+		font-size:1em;
+		font-weight:bolder;
+		text-decoration: none;
+		border-bottom:0.1em solid #555;
+		border-right:0.1em solid #555;
+		border-top:0.1em solid #ccc;
+		border-left:0.1em solid #ccc;
+		margin: 0.2em;
+		padding:0.2em;
+		display:block;
+	}
+
+	#submit a:hover {
+		background-color:#003366;
+		color:#999;
+		border-top:0.1em solid #777;
+		border-left:0.1em solid #777;
+		border-bottom:0.1em solid #aaa;
+		border-right:0.1em solid #aaa;
+		padding:0.2em;
+		margin: 0.2em;
+	}
+/* Login/index.phtml css END*/
+
+/* Hexagon css START */
+
+	#glassHex {
+		font-family: 'Lato', Calibri, Arial, sans-serif;
+		right: 0px;
+		position: relative;
+		top: -270px;
+	}
+	#glassHex img {
+		width: 350px;
+		position: absolute;
+		right: 0px;
+	}
+	#glassHex h1 {
+	    font-size: 13px;
+	    font-weight: bold;
+	    padding-bottom: 8px;
+	    position: absolute;
+		right: 100px;
+		top: 265px;
+		width: 150px;
+		text-align: center;
+	}
+
+	.button {
+		cursor: pointer;
+		position: absolute;
+	}
+
+	.button input {
+		left: 0px;
+		top: 0px;
+		width: 75px;
+	}
+	.button input:hover {
 		
-		/*Button link styles*/
-		.button a:link, .button a:visited {
-			color: #eee;
-			background-color:#1e5184;
-			font-size:1em;
-			font-weight:bolder;
-			text-decoration: none;
-			border-bottom:0.1em solid #555;
-			border-right:0.1em solid #555;
-			border-top:0.1em solid #ccc;
-			border-left:0.1em solid #ccc;
-			margin: 0.2em;
-			padding:0.2em;
-			display:block;
-		}
-		.button a:hover {
-			background-color:#003366;
-			color:#999;
-			border-top:0.1em solid #777;
-			border-left:0.1em solid #777;
-			border-bottom:0.1em solid #aaa;
-			border-right:0.1em solid #aaa;
-			padding:0.2em;
-			margin: 0.2em;
-		}
-		
-		/* Rounded Corner */
-		.txtBox {
-			border:2px solid #456879;
-			border-radius:10px;
-			height: 22px;
-			width: 230px;
-		}
-		
-		.font {
-			color:white;
-			weight:bold;
-		}
-    </style>
+	}
+
+	#loginButton {
+		right: 80px;
+	}
+
+	#signupButton {
+		right: 0px;
+	}
+
+	#glassHex h1 .log-in,
+	#glassHex h1 .sign-up {
+	    text-transform: uppercase;
+	    position: absolute;
+	    left: 18px;
+	    top: 5px;
+	    color: white;
+	    z-index: 100;
+	}
+
+/* Hexagon css END */

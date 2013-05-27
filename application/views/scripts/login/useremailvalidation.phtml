@@ -1,86 +1,8 @@
-<style type="text/css">
-html { 
-	background: url('<?=$this->baseUrl('images/chalkWallPlain.jpg')?>') no-repeat ; 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-}
-
-#homediv{
-		height: 85px; width: 100%; float: right;
-	}
-#centerdiv {     
-		width:700px;
-		height:250px;
-		position:absolute;
-		left:50%;
-		top:50%;
-		margin:-125px 0 0 -350px; 
-		background-color:white;
-		border-width:3px;
-		border-style:solid;
-		border-color:blue;
-}
-
-#teamMembers {
-		position:absolute; bottom:0; text-align:center;
-		width:100%;
-	}
-		
-	.circular {
-		width: 70px;
-		height: 70px;
-		border-radius: 150px;
-		-webkit-border-radius: 150px;
-		-moz-border-radius: 150px;
-		box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-		-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-		-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-		display: inline-block;
-	}
-
-	.circular img {
-		opacity: 0;
-		filter: alpha(opacity=0);
-	}
-/*Button link styles*/
-		.button{
-			color: #eee;
-			background-color:#1e5184;
-			font-size:1em;
-			font-weight:bolder;
-			text-decoration: none;
-			border-bottom:0.1em solid #555;
-			border-right:0.1em solid #555;
-			border-top:0.1em solid #ccc;
-			border-left:0.1em solid #ccc;
-			margin: 0.2em;
-			padding:0.2em;
-			display:block;
-		}
-		.button a:hover {
-			background-color:#003366;
-			color:#999;
-			border-top:0.1em solid #777;
-			border-left:0.1em solid #777;
-			border-bottom:0.1em solid #aaa;
-			border-right:0.1em solid #aaa;
-			padding:0.2em;
-			margin: 0.2em;
-		}
-.txtBox {
-			border:2px solid #456879;
-			border-radius:10px;
-			height: 22px;
-			width: 230px;
-		}
-</style>
-<div id=homediv align="right">
+<div id="homediv" align="right">
 	<a href='<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>'><img height="75px" width="75px" src="<?=$this->baseUrl('images/home.jpg')?>" style="text-decoration:none"></img></a>
 </div>
 
-<div id=centerdiv >
+<div id="centerdiv" >
 <?php if($this->sendValidateEmail) : ?>
 	   An email has been sent
 <?php endif; ?>
@@ -94,6 +16,6 @@ html {
  ?>
 <?php if($this->goHomeFlag) : ?>
      Your Account is already validated
- <?php endif; ?>
- </div>
+<?php endif; ?>
+</div>
  
