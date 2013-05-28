@@ -7,7 +7,7 @@ $(document).ready(function(){
 		cache: false
 	});
 
-	$("#signupButton button").click(function(){
+	$("#signupButton").click(function(){
 		$.ajax({url:"/Login/signup", 
 			
 		}).done(function(result){ 
@@ -24,7 +24,7 @@ $(document).ready(function(){
 		});
 	});
 
-	$("#forgotPwdButton button").click(function(){
+	$("#forgotPwdButton").click(function(){
 		$.ajax({url:"/Login/resetpwd", 
 			
 		}).done(function(result){ 
@@ -118,17 +118,13 @@ FB.login(function(response) {
 
 <?php if (!$this->user && !$this->regularUser): ?>
 
-<div id=homediv align="right">
-	<a href='<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>'>
-		<img height="75px" width="75px" src='<?=$this->baseUrl('images/home.jpg')?>' style="text-decoration:none"></img>
-	</a>
-</div>
-
-<div id=centerdiv_login>
+<div id="centerdiv_login">
 	<div>
+		
 		<div style="height: 110px; width: 80% ;float: left">
 		<?php echo $this->form; ?>
 		</div>
+
 		<div style="height: 110px; width: 15% ;float: left;top:50%;margin:30px 0 0 0;">
 			<center>
 				<a href="" onclick="FB.login(function(response){},{scope:'email'});" style="text-decoration:none">
@@ -138,20 +134,14 @@ FB.login(function(response) {
 		</div>
 	</div>
 	
-	<div class="btnDiv" id="signupButton">
-		<center>
-			<span class="button"> 
-				<button type="button">New user? Sign up here</button>
-			</span>
-		</center>
+	<div class="button" id="signupButton">
+		<input type="image" src="/images/blackGlassButton.png" alt="Submit">
+		<p>New user?<p><span class="sign-up">Signup</span>
 	</div>
-		
-	<div class="btnDiv" id="forgotPwdButton">
-		<center>
-			<span class="button"> 
-				<button type="button">Forgot Password ?</button>
-			</span>
-		</center>
+
+	<div class="button" id="forgotPwdButton">
+		<input type="image" src="/images/blackGlassButton.png" alt="Submit">
+		<span class="forgot-pwd">Forgot Password ?</span>
 	</div>
 
 	<?php if($this->loginFailed): ?>
@@ -165,6 +155,7 @@ FB.login(function(response) {
 
 
 <?php if ($this->user): ?>
+	s
 	<div id="homediv" align="right">
 		<a href='<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>'>
 			<img height="75px" width="75px" src='<?=$this->baseUrl('images/home.jpg')?>' style="text-decoration:none"></img>

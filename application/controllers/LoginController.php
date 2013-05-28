@@ -24,6 +24,10 @@ Login Submit Action : AuthUser
 ------------------------------------------------------------------------------------*/
     public function indexAction()
     {	
+    	// This Action is always invoked through AJAX : Disabling Layout
+    	$layout = $this->_helper->layout();
+    	$layout->disableLayout();
+
     	$session = new Zend_Session_Namespace("login_session");
 		if(!isset($session->name)) {
     		print_scr (D,"(indexAction)session is not set");

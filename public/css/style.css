@@ -2,6 +2,7 @@
 
 	body {
 		background: #999999;
+		font-family: 'Lato', Calibri, Arial, sans-serif;
 	}
 
 	.error { 
@@ -126,7 +127,6 @@
 /* Hexagon css START */
 
 	#glassHex {
-		font-family: 'Lato', Calibri, Arial, sans-serif;
 		right: 0px;
 		position: relative;
 		top: -270px;
@@ -150,6 +150,11 @@
 	.button {
 		cursor: pointer;
 		position: absolute;
+
+		/* Font */
+		font-size: 13px;
+	    font-weight: bold;
+	    text-align: center;
 	}
 
 	.button input {
@@ -169,14 +174,54 @@
 		right: 0px;
 	}
 
-	#glassHex h1 .log-in,
-	#glassHex h1 .sign-up {
+	#closeButton {
+		top: 25px;
+		right: 67px;
+		display: none;
+	}
+
+	#closeButton input {
+		width: 20px;
+		height: 25px;
+	}
+
+	#closeButton span {
+		left: 6px;
+	}
+
+	.button span {
 	    text-transform: uppercase;
 	    position: absolute;
 	    left: 18px;
 	    top: 5px;
 	    color: white;
 	    z-index: 100;
+	}
+
+	#forgotPwdLink {
+		position: absolute;
+		right: 0px;
+		display: none;
+
+		/* Font */
+		font-size: 10px;
+	    font-weight: bold;
+	    text-align: center;
+
+	    cursor: pointer;
+	}
+
+	#forgotPwdLink p {
+		margin: 0px;
+	}
+
+	#forgotPwdLink a {
+		color: blue;
+		text-decoration: underline;
+	}
+
+	#forgotPwdLink a:hover {
+		color: white;
 	}
 
 /* Hexagon css END */

@@ -47,16 +47,60 @@
 			});
 		});
 
-		$("#glassHex").click(function() {
+		$("#forgotPwdLink a").click(function(){
+			$.ajax({url:"/Login/resetpwd", 
+				
+			}).done(function(result){ 
+
+				$("#formSlot").html(result);
+
+			})
+			.fail(function(response, status, xhr) {
+				if (status == "error") {
+					if(typeof console != "undefined") {
+						console.log(xhr.status + " " + xhr.statusText);
+					}
+				}
+			});
+		});
+
+		// On Login/Signup Button click
+		// Slide Hex Down, fadeout login button, slide left signup button, fadein forgot passwd link
+		$("#loginButton, #signupButton").click(function() {
 			$("#glassHex").animate({
 				top: '-20px'
 			}, 1000, 'linear', function() {
-					$("#glassHex h1").css("display", "none");
+
+					$('#loginButton').fadeOut('slow');
+					$('#signupButton').animate({
+						right: '80px'
+					}, 500, 'linear', function(){
+						$('#forgotPwdLink').fadeIn('fast');
+					});
+
+					$("#closeButton").fadeIn('fast');
+
 				}
-			)
+			);
 		});
 
-		$(".button").hover(
+		$("#closeButton").click(function() {
+			$("#glassHex").animate({
+				top: '-270px'
+			}, 1000, 'linear', function() {
+
+					$("#closeButton").fadeOut('fast');
+					$('#forgotPwdLink').fadeOut('fast');
+					$('#signupButton').animate({
+						right: '0px'
+					}, 500, 'linear', function(){
+						$('#loginButton').fadeIn('slow');
+					});
+				}
+			);
+		});
+
+		$("#loginButton, #signupButton").hover(
 			function () {
 				$(this).find("input").attr('src', '/images/plainGlassButton.png');
 				$(this).find("span").css('color', 'black');
@@ -67,6 +111,16 @@
 			}
 		);
 
+		$("#closeButton").hover(
+			function () {
+				$(this).find("input").attr('src', '/images/blackGlassButton.png');
+				$(this).find("span").css('color', 'white');
+			},
+			function () {
+				$(this).find("input").attr('src', '/images/plainGlassButton.png');
+				$(this).find("span").css('color', 'white');
+			}
+		);		
 	});
 
 	</script>
@@ -76,7 +130,10 @@
 	<div id="glassHex">
 		<img src="/images/glassHex.png">
 		<h1>
-			<!--<span class="log-in">Log in</span> or <span class="sign-up">sign up</span>-->
+			<div class="button" id="closeButton">
+				<input type="image" src="/images/plainGlassButton.png" alt="Submit">
+				<span class="close">^</span>
+			</div>
 			<div class="button" id="loginButton">
 				<input type="image" src="/images/blackGlassButton.png" alt="Submit">
 				<span class="log-in">Login</span>
@@ -84,6 +141,10 @@
 			<div class="button" id="signupButton">
 				<input type="image" src="/images/blackGlassButton.png" alt="Submit">
 				<span class="sign-up">signup</span>
+			</div>
+			<div id="forgotPwdLink">
+				<p>Forgot Password?</p>
+				<a>Click here</a>
 			</div>
 		</h1>
 	</div>
