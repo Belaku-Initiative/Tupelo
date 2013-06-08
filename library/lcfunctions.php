@@ -5,20 +5,33 @@ define("tblLogin",1);
 define("tbl_myProfile",2);
 define("pwdresettbl",3);
 
-//Logging Utils
 define("ScrLogsEnable",0);//Enables or Disables the echo statements on screen
+//Logging Utils
 define("E",1);//ERROR
 define("D",2);//DEBUG
-
-/********************************************************************************
-Name	   : getForm()
-Description: Creates a new login form
-Return     : Login Form
-********************************************************************************/
-function getForm()
+/*******************************************************************************************
+Name	   : getModule()
+Description: Sends the user module currently in
+Return     : Name of the user/module
+********************************************************************************************/
+function getModule()
 {
-	// create form as above
-	$form = new Application_Form_Login();
+   return "scooby";
+}
+/*******************************************************************************************
+Name	   : getForm($formName)
+Description: Creates a new form and returns the same based on the type of  form requested
+Return     : Requested Form
+********************************************************************************************/
+function getForm($formName)
+{
+	// create form 
+	switch($formName)
+	{
+		case "login" :
+			$form = new Application_Form_Login();
+			break;
+	}
 	return $form;
 }
 /********************************************************************************
@@ -163,13 +176,13 @@ function sendEmail($fromEmail, $fromName,$toEmail,$toName,$subject,$body,$reserv
 Name	   : getFB()
 Description: Creates a FB object based on our APP Id
 Params     : None
-Return     : FB object
+Return     : FB object, user information if exists
 *********************************************************************************/
 function getFB() {
 	require 'facebook.php';
 	$facebook = new Facebook(array(
-			'appId'  => '343333115786778',
-			'secret' => '0f7b50909f7b7edad3bca18d0953c23f',
+			'appId'  => '190385524450312',
+			'secret' => '032d258cf79b7d1be0ee1fa470e6b023',
 	));
 	return $facebook;
 }
@@ -202,5 +215,28 @@ function print_scr($debug_level,$debug_msg)
 		
 		echo $final_debug;
 	}
+}
+
+ /********************************************************************************
+Name	   : isFbUser()
+Description: Check if the user account associated with an email is Fb user
+Params     : $email
+Return     : True or False
+*********************************************************************************/
+function isFbUser($email)
+{
+	$table = new Application_Model_DbTable_TblLogin();
+	$columnName = 'email';
+	$row = $table->fetchRow($table->select()->where($columnName.'= ?', $email));
+	$ifFbUser = 0; //Initializing
+	if(count($row)!= 0)
+	{
+		$ifFbUser = $row->is_FB_User;
+	}
+	if($ifFbUser)
+	{
+		return true;
+	}
+	return false;
 }
 ?>

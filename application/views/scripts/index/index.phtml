@@ -88,9 +88,9 @@
 			</div>
 			<div class="btnMainDiv">
 				<center>
-						<?php if ($this->userLoggedIn == "true") {?>
+						<?php if ($this->fbUser == 1 || $this->regularUser == 1) { ?>
 							<span class="button" style="background-color:white;">
-							Welcome <?php echo $this->userName; ?>
+								Welcome <?php echo $this->userFirstName; ?> <?php echo $this->userLastName; ?>
 							</span>
 						<?php } else { ?>
 							<span class="button">
@@ -105,7 +105,7 @@
 			</div>
 			<div class="btnMainDiv">
 				<center>
-						<?php if ($this->userLoggedIn == "true") { ?>
+						<?php if ($this->fbUser == 1 || $this->regularUser == 1) { ?>
 							<div id=homediv align="right">
 								<a href="<?php echo $this->url(array('controller' => 'Login', 'action' => 'logout'), null, false)?>"><img height="45" width="45px" src='<?=$this->baseUrl('images/logoutIcon.png')?>' style="text-decoration:none"></img></a>
 							</div>

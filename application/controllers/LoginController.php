@@ -14,8 +14,11 @@ Description    :  Has the above actions in it.  Control's the
 		
 class LoginController extends Zend_Controller_Action
 {
+	protected $session;
+	
     public function init()
     {
+		$this->session=new Zend_Session_Namespace("login_session");
     }
 /*----------------------------------------------------------------------------------
 Action 	    		: Index
@@ -24,154 +27,181 @@ Description			: Displays main page of Travel APP.With option to login,signup,Fb 
 Login Submit Action : AuthUser
 ------------------------------------------------------------------------------------*/
     public function indexAction()
-    {	    	
-    	$session = new Zend_Session_Namespace("login_session");
-		if(!isset($session->name)) {
+    {
+	
+		if(!isset($this->session->name)) {
+		
     		print_scr (D,"(indexAction)session is not set");
-			$facebook = getFB();
-    		$user = $facebook->getUser();
-    		$this->view->user=$user;
-    		if ($user) {
-    			$user_profile = $facebook->api('/' . $user);
-    			$userName = $user_profile['name'];
-    			$userFirstName = $user_profile['first_name'];
-    			$userLastName =  $user_profile['last_name'];
-    			$userPic = "https://graph.facebook.com/".$user."/picture";
-    			$userId = $user;
-    			$userEMail = $user_profile['email'];
-    			$userGender = $user_profile['gender'];
-    			
-				if(!isset($userEMail))
-				{
-					print_scr(E,"No Permission to retrieve the users email-id");
-					return;
-				}
-				
-    			$this->view->userName=$userName;
-    			$this->view->userFirstName=$userFirstName;
-    			$this->view->userLastName=$userLastName;
-    			$this->view->userPic=$userPic;
-    			$this->view->userId=$user;
-    			$this->view->userEMail=$userEMail;
-    			$this->view->userGender=$userGender;
-    			$session->name = $userEMail;
-    			$session->fbUser = "true";
-    			$session->userProfile=$user_profile;
-    			$this->_redirect('/login/adduser/');
-    		} else {
-    			// handle regular user who has to login
-				if(isset($session->errorAuthuserIndex ))
-				{
-					$this->view->errorMessage = $session->errorAuthuserIndex;
-				}
-    			$this->view->form = getForm();
-				if(isset($session->retainEmail)){
-					$data = array( 'email' => $session->retainEmail);
-					$this->view->form->populate($data);
-				}
-    			$this->view->form->setAction($this->view->url(array('controller' => 'Login', 'action' => 'authuser'), 'default', TRUE));
-    		}
+			
+			//Refer Additional check added in fblogin action
+			if(isset($this->session->errorfbLoginIndex )){
+				$this->view->errorMessage = $this->session->errorfbLoginIndex;
+				$this->session->errorfbLoginIndex=null;
+			}
+			//If regular users authentication has failed we display errors 
+			//Note session->name is set only after authentication either fb or regular
+			if(isset($this->session->errorAuthuserIndex )){
+				$this->view->errorMessage = $this->session->errorAuthuserIndex;
+				$this->session->errorAuthuserIndex=null;
+			}
+			//Create a new login form
+			$this->view->form = getForm("login");
+			if(isset($this->session->retainEmail)){
+				$data = array( 'email' => $this->session->retainEmail);
+				$this->view->form->populate($data);
+			}
+			//Login form action is set to authuser to validate the credentials
+			//$user_profile=$this->session->userProfile;  
+			$this->view->form->setAction($this->view->url(array('controller' => 'Login', 'action' => 'authuser'), 'default', TRUE));
+    		
     	} else {
 			print_scr(D,"(indexAction)session is set");
-    		if (isset($session->fbUser)) {
-				$facebook = getFB();
-				$user = $facebook->getUser();
-				$this->view->user=$user;
-				if ($user) {
-					$user_profile = $facebook->api('/' . $user);
-					$userName = $user_profile['name'];
-					$userFirstName = $user_profile['first_name'];
-					$userLastName =  $user_profile['last_name'];
-					$userPic = "https://graph.facebook.com/".$user."/picture";
-					$userId = $user;
-					$userEMail = $user_profile['email'];
-					$userGender = $user_profile['gender'];
-				
-					$this->view->userName=$userName;
-					$this->view->userFirstName=$userFirstName;
-					$this->view->userLastName=$userLastName;
-					$this->view->userPic=$userPic;
-					$this->view->userId=$user;
-					$this->view->userEMail=$userEMail;
-					$this->view->userGender=$userGender;
-					
-					print_scr(D,"FB user.Session:".$session->name);
-					
-				} else {
-					print_scr(E,"FB User.Failure Case");
-				}
+    		if (isset($this->session->isFBUser)) {
+			        //Fb User has logged in
+					$user_profile=$this->session->userProfile;  
+					$this->view->userFirstName = $user_profile['first_name'];
+					$this->view->userLastName= $user_profile['last_name'];
+					$this->view->fbUser = 1;
+					print_scr(D,"FB user.Session:".$this->session->name); 
 			} else {
 					// regular user who has logged in
-					
-					echo "regular user logged in<br />";
-					echo "session name:".$session->name."<br />";
-					//$this->render'loginform');
+					$this->view->regularUser=1;
+					$this->view->userFirstName=$this->session->userFirstName;
+					$this->view->userLastName=$this->session->userLastName;
 			}
     	}	 
     }
+/*------------------------------------------------------------------------
+Action 	   : fblogin
+Description: Retrieving the FB user details populate the DB, set the session variables, 
+             redirect to user home page(travelapp vs main page depending on click)
+--------------------------------------------------------------------------*/
+	public function fbloginAction(){
+	
+		$facebook = getFB();
+		$fbUser= $facebook->getUser();
+		//Additional check to ensure user has loggedin to FB
+		if ($fbUser) {
+			$this->view->fbUser=$fbUser;
+			//Set the session variables and populate the DB by calling adduser
+			$user_profile = $facebook->api('/' . $fbUser);
+			$userEMail = $user_profile['email'];
+			// $userName = $user_profile['name'];
+			// $userFirstName = $user_profile['first_name'];
+			// $userLastName =  $user_profile['last_name'];
+			// $userPic = "https://graph.facebook.com/".$fbUser."/picture";
+			// $userId = $fbUser;
+			// $userGender = $user_profile['gender'];
+			
+			print_scr(D,"FB User Email:".$userEMail);
+			//exit;
+			
+			if(!isset($userEMail)){
+				print_scr(E,"No Permission to retrieve the users email-id");
+				//Should not come here. 
+				//Reason: If user has logged in via FB he has to give access to email else he would not 
+				// Pass the authentication and come this far
+				return;
+			}
+			
+			// $this->view->userName=$userName;
+			// $this->view->userFirstName=$userFirstName;
+			// $this->view->userLastName=$userLastName;
+			// $this->view->userPic=$userPic;
+			// $this->view->userId=$fbUser;
+			// $this->view->userEMail=$userEMail;
+			// $this->view->userGender=$userGender;
+			
+			//User profile is an array which hass all the user details, we can use this 
+			//in the view
+			$this->view->userProfile=$userProfile;
+			
+			//Setting session variables
+			$this->session->name = $userEMail;
+			$this->session->isFBUser = "true";
+			$this->session->userProfile=$user_profile;
+			$this->_redirect('/Login/adduser/'); //Populate the user profile
+		} else {
+		  print_scr (D,"(fbloginAction)Should not come here");
+		  $this->session->errorfbLoginIndex = "Oops something went wrong, please re login";
+		  $this->_redirect('/Login/');
+		}	
+	}
+	
 /*------------------------------------------------------------------------
 Action 	   : AuthUser
 Description: Authenticates the user using Zend Auth library
              Give option to resend email validator if user status
 			 is not validated. If validated takes him into his home page.
 --------------------------------------------------------------------------*/
-public function authuserAction()
-{
-	$session = new Zend_Session_Namespace("login_session");
-	
-	if (!$this->getRequest()->isPost()) {
-		return $this->_forward('index');
-	}
-	$form = getForm();
-	$form->isValid($_POST);
-	
-	$email = $form->getValue('email');
-	$pwd = $form->getValue('password');
-	
-	$authadapter = getauthadapter($email);
-	$authadapter->setIdentity($email)
-				->setCredential($pwd);
-	
-	//For the actual authentication
-	$auth = Zend_Auth:: getInstance();
-	$result = $auth->authenticate($authadapter);
-	
-	if($result->isValid()) {
-		// echo "authenticated";
-		$identity = $authadapter->getResultRowObject();  //To get the entire details and store across app using zend storage
-		$userIndex= $identity->userId;
-		$row = fetchRow('tblMyProfile','userId',$userIndex);
-		$userFirstName=$row->first_Name;
-		$userLastName=$row->last_Name;
-		$userEMail=$email;
-		$this->view->userFirstName=$userFirstName;
-		$this->view->userLastName=$userLastName;
-		$this->view->userEMail=$userEMail;
+	public function authuserAction()
+	{
+		//On Page refresh-if session is valid dont authenticate again
+		if (isset($this->session->name))
+		{
+			$this->view->userFirstName=$this->session->userFirstName;
+			$this->view->userLastName=$this->session->userLastName;
+			$this->view->sendValidateEmail= $this->session->sendValidateEmail;
+			return;
+		}
+		if (!$this->getRequest()->isPost()) {
+			return $this->_forward('index');
+		}
+		$form = getForm("login");
+		$form->isValid($_POST);
 		
-		$session->name = $userEMail;
-		$session->userName = $userFirstName." ".$userLastName;
-		// Check if user email is validated
-		if($identity->user_Status!="validated") { //If user not yet validated, give him an option to resend the link
-			$this->view->userIndex = $userIndex;
-			$this->view->sendValidateEmail = true;
-		} else {
-			print_scr(D,"User: ".$userEMail." is validated");
-			$this->view->regularUser=1;
-			$session->regularUser = "true";
-			print_scr(D,"Setting session variables Name:".$session->name);
-		}	
-	}
-	else {
-		// Need to throw approritae error and send to login page.
-		//Also retaining the userId in the login form
-		$session->errorAuthuserIndex = "The username or password you entered is incorrect";
-		$session->retainEmail = $email ;
-		$this->view->loginFailed=true;
-		$this->_redirect('/login');
+		$email = $form->getValue('email');
+		$pwd = $form->getValue('password');
 		
-		print_scr(E,"User: ".$email." is invalid!!");
+		$authadapter = getauthadapter($email);
+		$authadapter->setIdentity($email)
+					->setCredential($pwd);
+		
+		//For the actual authentication
+		$auth = Zend_Auth:: getInstance();
+		$result = $auth->authenticate($authadapter);
+		
+		if($result->isValid()) {
+			// echo "authenticated";
+			$identity = $authadapter->getResultRowObject();  //To get the entire details and store across app using zend storage
+			$userIndex= $identity->userId;
+			$row = fetchRow('tblMyProfile','userId',$userIndex);
+			$userFirstName=$row->first_Name;
+			$userLastName=$row->last_Name;
+			$userEMail=$email;
+			//Save Variable in the view
+			$this->view->userFirstName=$userFirstName;
+			$this->view->userLastName=$userLastName;
+			$this->view->userEMail=$userEMail;
+			
+			$this->session->name = $userEMail;
+			$this->session->userName = $userFirstName." ".$userLastName;
+			$this->session->userFirstName=$userFirstName;
+			$this->session->userLastName=$userLastName;
+			
+			// Check if user email is validated
+			if($identity->user_Status!="validated") { //If user not yet validated, give him an option to resend the link
+				$this->view->userIndex = $userIndex;
+				$this->view->sendValidateEmail = true;
+				$this->session->sendValidateEmail = true;
+			} else {
+				print_scr(D,"User: ".$userEMail." is validated");
+				$this->view->regularUser=1;
+				$this->session->regularUser = "true";
+				print_scr(D,"Setting session variables Name:".$this->session->name);
+			}	
+		}
+		else {
+			// Need to throw approritae error and send to login page.
+			//Also retaining the userId in the login form
+			$this->session->errorAuthuserIndex = "The username or password you entered is incorrect";
+			$this->session->retainEmail = $email ;
+			$this->view->loginFailed=true;
+			$this->_redirect('/login');
+			
+			print_scr(E,"User: ".$email." is invalid!!");
+		}
 	}
-}
 /*------------------------------------------------------------------------
 Action 	           : SignUp
 Description        : Displays user signup form. 
@@ -179,17 +209,16 @@ Form Submit Action : Adduser
 --------------------------------------------------------------------------*/
     public function signupAction()
     {
-    	$session = new Zend_Session_Namespace("login_session");
-    	if(isset($session->errAdduserSignup)){
-			$this->view->errorMessage = $session->errAdduserSignup;
+    	//$this->session = new Zend_Session_Namespace("login_session");
+    	if(isset($this->session->errAdduserSignup)){
+			$this->view->errorMessage = $this->session->errAdduserSignup;
 		}
-		
-		
-		$session->addUser="true";
+
+		$this->session->addUser="true";
     	$form = new Application_Form_Signup();
     	$this->view->form = $form;
-		if(isset($session->retainSignup)){ //Reatining the values upon signup page error
-			$this->view->form->populate($session->retainSignup);
+		if(isset($this->session->retainSignup)){ //Reatining the values upon signup page error
+			$this->view->form->populate($this->session->retainSignup);
 		}
     }
 /*------------------------------------------------------------------------
@@ -199,24 +228,27 @@ Description        : Add a user to DB, if FB user check if he/she exists
 					 user email
 --------------------------------------------------------------------------*/
     public function adduserAction()
-    {
-    	$session = new Zend_Session_Namespace("login_session");
-		if (isset($session->fbUser)){
+    {	
+		//On Page refresh-if session is valid do nothing
+		if (isset($this->session->name) && !isset($this->session->isFBUser))
+		{
+			$this->view->userFirstName=$this->session->userFirstName;
+			$this->view->userLastName=$this->session->userLastName;
+			return;
+		}
+	
+		if (isset($this->session->isFBUser)){
 	    	// If the action is called due to Facebook Login
-			$user_profile=$session->userProfile;
-			$userName = $user_profile['name'];
+			$user_profile=$this->session->userProfile;
 			$userFirstName = $user_profile['first_name'];
 			$userLastName =  $user_profile['last_name'];
 			$userEMail = $user_profile['email'];
 			$userGender = $user_profile['gender'];
+			print_scr(D,"Fname:".$userFirstName.":::LName:".$userLastName.":::EMail:".$userEMail.":::Sex:".$userGender);
 			
-			print_scr(D,"UserName:".$userName.":::Fname:".$userFirstName.":::LName:".$userLastName.":::EMail:".$userEMail.":::Sex:".$userGender);
-			
-			$session->name=$userEMail;
-			$session->userName = $userName;
 			$isEmailInDb = doesDbRecordExist('tblLogin','email',$userEMail);
 			if (!$isEmailInDb){
-				// First time facebok user has logged in 
+				// First time facebok user has logged in, add details to DB
 				$newUser = new Application_Model_DbTable_TblLogin();
 				$newUser->loginTblInsert(array(
 						'email'    => $userEMail, 
@@ -233,20 +265,21 @@ Description        : Add a user to DB, if FB user check if he/she exists
 						'gender'          => $userGender,
 				));
 				$this->_redirect('/login');
-			} else {
+			} else { //If he is returning facebook user
 				$this->_redirect('/login');
-				echo "User has account and logging using FB";
+				print_scr (D,"User has account and logging using FB");
 			}
 			// else we have to redirect to user home page
 	    	
-		} else if (isset($session->addUser)) {
+		} else if (isset($this->session->addUser)) {
 			
 			//Check if username already exists, if not add,else redirect it to signup page
 			$emailId = $_POST['email'];
 			$isEmailAlreadyInDb = doesDbRecordExist('tblLogin','email',$emailId);
-			if($isEmailAlreadyInDb)
+			$isFbUser = isFbUser($emailId);   //If we he is a FB user and now trying to sign up we should allow him
+			if($isEmailAlreadyInDb && !$isFbUser)
 			{
-				$session->errAdduserSignup = "This email id is already taken, please enter another one";
+				$this->session->errAdduserSignup = "This email id is already taken, please enter another one";
 				//Reatining the values entered by user upon error 
 				$retainSignup = array(
 					'firstName'       => $_POST['firstName'],
@@ -254,48 +287,87 @@ Description        : Add a user to DB, if FB user check if he/she exists
 					'gender'          => $_POST['gender'],
 					'contact'         => $_POST['contact']   
 				);
-				$session->retainSignup = $retainSignup;
+				$this->session->retainSignup = $retainSignup;
 				$this->_redirect('login/signup');
 			}
+			elseif($isEmailAlreadyInDb && $isFbUser	) //Fb user trying to signup, so we need to overwrite/append the details to the same row.
+			{
+			       
+					$userValidateTime = date('Y/m/d H:i:s'); //Used for user email validation
+					$userValidateUuid = generateUuid();
+					$salt = "@#$&^%!(*)"; 
+					$password = sha1($salt. $_POST['email']. $_POST['password']);
 					
-			//Else add the user
-			$userValidateTime = date('Y/m/d H:i:s'); //Used for user email validation
-			$userValidateUuid = generateUuid();
-			
-			$salt = "@#$&^%!(*)"; 
-			$newUser = new Application_Model_DbTable_TblLogin();
-			$newUser->loginTblInsert(array(
-					'email'    => $_POST['email'],
-					'password' => sha1($salt. $_POST['email']. $_POST['password']),
-					'user_Validate_Uuid' => $userValidateUuid,
-					'user_Validate_Time' => $userValidateTime
-			));
+					$row = fetchRow('tblLogin','email',$emailId);
+					$userIndex= $row->userId; //Used to fetch the Myprofile Table
+					$row->password 			 =	$password;
+					$row->user_Validate_Uuid =	$userValidateUuid;
+					$row->user_Validate_Time 	 =	$userValidateTime;
+					$row->user_Status = "nonvalidated";  //Since by default FB user is validated, we change it back since we now want the user to validate his email
+					$row->save();
+					
+					$row = fetchRow('tblMyProfile','userId',$userIndex);
+					if(isset($_POST['firstName'])) //Making sure we do not overwrite the entries with null
+					{
+						$row->first_Name	=  $_POST['firstName'];
+					}
+					if(isset($_POST['lastName'])) //Making sure we do not overwrite the entries with null
+					{
+						$row->last_Name	=  $_POST['firstName'];
+					}
+					if(isset($_POST['gender'])) //Making sure we do not overwrite the entries with null
+					{
+						$row->gender	= $_POST['gender'];
+						echo $_POST['gender'];
+						exit;
+					}
+					if(isset($_POST['contact'])) //Making sure we do not overwrite the entries with null
+					{
+						$row->contact	=  $_POST['contact'];
+					}
+					$row->save();
+			}
+			else
+			{
+				//Else add the user
+				$userValidateTime = date('Y/m/d H:i:s'); //Used for user email validation
+				$userValidateUuid = generateUuid();
+				
+				$salt = "@#$&^%!(*)"; 
+				$newUser = new Application_Model_DbTable_TblLogin();
+				$newUser->loginTblInsert(array(
+						'email'    => $_POST['email'],
+						'password' => sha1($salt. $_POST['email']. $_POST['password']),
+						'user_Validate_Uuid' => $userValidateUuid,
+						'user_Validate_Time' => $userValidateTime
+				));
 
-			//Need to send out an email to the user for validation, email link has UUID and user index in tblLogin
-			$row = fetchRow('tblLogin','email',$emailId);
-			$userIndex= $row->userId;
-			
-			$userProfile = new Application_Model_DbTable_TblMyProfile();
-			$userProfile->addNewProfile(array(
-					'userId'           => $userIndex,
-					'first_Name'       => $_POST['firstName'],
-					'last_Name'        => $_POST['lastName'],
-					'gender'          => $_POST['gender'],
-					'contact'         => $_POST['contact']  
+				//Need to send out an email to the user for validation, email link has UUID and user index in tblLogin
+				$row = fetchRow('tblLogin','email',$emailId);
+				$userIndex= $row->userId;
+				
+				$userProfile = new Application_Model_DbTable_TblMyProfile();
+				$userProfile->addNewProfile(array(
+						'userId'           => $userIndex,
+						'first_Name'       => $_POST['firstName'],
+						'last_Name'        => $_POST['lastName'],
+						'gender'          => $_POST['gender'],
+						'contact'         => $_POST['contact']  
 
-			));
-			$session->name=$emailId;
+				));
+			}
+			//Common code for both elseif and else cases.  Setting the session and sending an email to validate		
+			$this->session->name=$emailId;
+			$this->session->userFirstName = $_POST['firstName'];
+			$this->session->userLastName = $_POST['lastName'];
 			
-			$emailVerificationLink = "www.stubees.com/scooby/public/Login/useremailvalidation?uuid=".$userValidateUuid."&pid=".$userIndex;
+			$emailVerificationLink = "www.stubees.com/".getModule()."/public/Login/useremailvalidation?uuid=".$userValidateUuid."&pid=".$userIndex;
 			
 			$htmlToSend = "<h5>Hello ".$_POST['firstName']." Welcome to Stubees!!</h5><br />Please verify your account by clicking here:<br />".$emailVerificationLink;
 			$fromEmail = "noreply@stubees.com";  //Make it global Variable
 			$fromName = "Stubees";
 				
 			sendEmail($fromEmail, $fromName,$emailId,$_POST['firstName'],"Verification",$htmlToSend,0);
-				
-				
-			
     	}
 		else
 		{
@@ -308,9 +380,9 @@ Description        : Clears the session, takes to stubees.com.
 --------------------------------------------------------------------------*/
     public function logoutAction()
     {
-	    $session = new Zend_Session_Namespace("login_session");
 		$authAdapter = Zend_Auth::getInstance();
         $authAdapter->clearIdentity();
+		$this->session->unsetAll();
 		Zend_Session::destroy( true );
 		$this->_redirect('/index');
     }
@@ -322,17 +394,17 @@ Description        : Inovked when users clicks on reset password.
     public function resetpwdAction()
     {
         //If the email link is expired we get an error message 
-		$session = new Zend_Session_Namespace("login_session");
-    	if(isset($session->errResetpwdemailResetpwd))
+		
+    	if(isset($this->session->errResetpwdemailResetpwd))
 		{
-			$this->view->errorMessage = $session->errResetpwdemailResetpwd;
+			$this->view->errorMessage = $this->session->errResetpwdemailResetpwd;
 		}
     	$sendEmailFlag = 0;
     	$form = new Application_Form_Userid();
     	$this->view->form = $form;
     	if ($this->getRequest()->isPost())
     	{
-    		$form = getForm();
+    		$form = getForm("login");
     		$form->isValid($_POST);
     		$email = $form->getValue('email');
     		
@@ -365,7 +437,7 @@ Description        : Inovked when users clicks on reset password.
     			
     		}	
     	}
-    	if($sendEmailFlag && (!isset($session->resetPwdEmailSent)))  //To avoid Dos attack by refreshing page to send coninous email's in same session
+    	if($sendEmailFlag && (!isset($this->session->resetPwdEmailSent)))  //To avoid Dos attack by refreshing page to send coninous email's in same session
     	{
     		//Need To send A email & add an entry to the table for corresponding email
     		$date = date('Y/m/d H:i:s');
@@ -382,12 +454,12 @@ Description        : Inovked when users clicks on reset password.
 				$userEmail = $_POST['email'];
 				$myProfileRow = fetchRow('tblMyProfile','userId',$userIndex); //Retrieve the first name of the user
 				$toName =  $myProfileRow->first_Name;
-				$resetPwdLink = "www.stubees.com/scooby/public/Login/resetpwdemail?uuid=".$uuid."&pid=".$userIndex;
+				$resetPwdLink = "www.stubees.com/".getModule()."/public/Login/resetpwdemail?uuid=".$uuid."&pid=".$userIndex;
 				$htmlToSend = "<h5>Hello ".$toName."</h5><br />Reset your password by clicking here:<br />".$resetPwdLink;
 				$fromEmail = "noreply@stubees.com";  //Make it global Variable
 				$fromName = "Stubees";		
 				sendEmail($fromEmail, $fromName,$userEmail,$toName,"Reset Password Request",$htmlToSend,0);
-				$session->resetPwdEmailSent = "true";
+				$this->session->resetPwdEmailSent = "true";
     		}
     		else
     		{
@@ -404,7 +476,7 @@ Form Action		   : Same action, replaces the password with new password
 ---------------------------------------------------------------------------------------------*/
     public function resetpwdemailAction()
     {
-	    $session = new Zend_Session_Namespace("login_session");
+	    
         if (!$this->getRequest()->isPost()) // If its not a post action, then its user cliking the email link to reset the Pwd
         {
         	$oneday = 60*60*24;
@@ -415,7 +487,7 @@ Form Action		   : Same action, replaces the password with new password
         	{
         		//need to redirect to reset password with the error msg
         		//$this->_helper->FlashMessenger->addMessage("inavlid Link, please enter the user id again", 'actions');
-				$session->errResetpwdemailResetpwd = "inavlid Link, please enter the user id again";
+				$this->session->errResetpwdemailResetpwd = "inavlid Link, please enter the user id again";
         		$this->_redirect('login/resetpwd');
         	}
         	elseif($rows->count()== 1)// We should find only one row
@@ -426,7 +498,7 @@ Form Action		   : Same action, replaces the password with new password
         		if($uuid != $uuidInDb)
         		{
         			//$this->_helper->FlashMessenger->addMessage("inavlid Link, please enter the user id again", 'actions');
-					$session->errResetpwdemailResetpwd = "inavlid Link, please enter the user id again";
+					$this->session->errResetpwdemailResetpwd = "inavlid Link, please enter the user id again";
         			$this->_redirect('login/resetpwd');
         			
         		}
@@ -436,7 +508,7 @@ Form Action		   : Same action, replaces the password with new password
         		if($timeInDb < (time()-$oneday))
         		{
         			//$this->_helper->FlashMessenger->addMessage("Link expried please enter email id", 'actions');
-					$session->errResetpwdemailResetpwd = "Link expried please enter email id";
+					$this->session->errResetpwdemailResetpwd = "Link expried please enter email id";
         			$this->_redirect('login/resetpwd');
         		}
         		else
@@ -450,7 +522,7 @@ Form Action		   : Same action, replaces the password with new password
 						$row->user_Status = "validated";
 						$row->save();
 					}
-					$session->resetUserEmail= $row->email; //Used in reseting the password for this user
+					$this->session->resetUserEmail= $row->email; //Used in reseting the password for this user
         			$form = new Application_Form_Resetpwd();//Application_Form_Resetpwd
         			$this->view->form = $form;
         			$this->view->form->setAction($this->view->url(array('controller' => 'login', 'action' => 'resetpwdemail'), 'default', TRUE));
@@ -466,7 +538,7 @@ Form Action		   : Same action, replaces the password with new password
         	
         	//Reset the password in the log in tbl
         	$salt =  "@#$&^%!(*)"; //Global Variables??
-        	$userEmail = $session->resetUserEmail;//$_POST['email'];
+        	$userEmail = $this->session->resetUserEmail;//$_POST['email'];
         	// Reset The Password
         	$row = fetchRow('tblLogin','email',$userEmail);
         	$newPwd = sha1($salt. $userEmail. $_POST['password']);
@@ -493,7 +565,7 @@ Description        : Inovked when users clicks on the email link he receives to 
 ---------------------------------------------------------------------------------------------*/
     public function useremailvalidationAction()
     {
-	    $session = new Zend_Session_Namespace("login_session");
+	    
 		
     	if (!$this->getRequest()->isPost()) // If its not a post action, then its user cliking the email link to validate the email
     	{
@@ -513,7 +585,7 @@ Description        : Inovked when users clicks on the email link he receives to 
 			$myProfileRow = fetchRow('tblMyProfile','userId',$userIndex); //Retrieve the first name of the user
 			$toName =  $myProfileRow->first_Name;
 				
-			$emailVerificationLink = "www.stubees.com/scooby/public/Login/useremailvalidation?uuid=".$userValidateUuid."&pid=".$userIndex;
+			$emailVerificationLink = "www.stubees.com/".getModule()."/public/Login/useremailvalidation?uuid=".$userValidateUuid."&pid=".$userIndex;
 		        $htmlToSend = "<h5>Hello ".$toName." Welcome to Stubees!!</h5><br />Please verify your account by clicking here:<br />".$emailVerificationLink;
 			$fromEmail = "noreply@stubees.com";  //Make it global Variable
 			$fromName = "Stubees";
@@ -567,12 +639,12 @@ Description        : Inovked when users clicks on the email link he receives to 
 						$row->user_Validate_Uuid = null;
 						$row->save();	
 						//echo "User Account Validated";
-						$this->view->goHomeFlag = 1;
+						$this->view->isValidated =1;
 					}
 				}
 				else  //User Exists and status is validated
 				{
-				   echo "User Account Validated Already";
+				   //echo "User Account Validated Already";
 				   $this->view->goHomeFlag = 1;
 				}
     			
@@ -601,7 +673,7 @@ Description        : Inovked when users clicks on the email link he receives to 
     		//Send Email
 		$myProfileRow = fetchRow('tblMyProfile','userId',$userIndex); //Retrieve the first name of the user
 		$toName =  $myProfileRow->first_Name;
-		$emailVerificationLink = "stubees.com/scooby/public/Login/useremailvalidation?uuid=".$userValidateUuid."&pid=".$userIndex;
+		$emailVerificationLink = "www.stubees.com/".getModule()."/public/Login/useremailvalidation?uuid=".$userValidateUuid."&pid=".$userIndex;
 		$htmlToSend = "<h5>Hello ".$toName." Welcome to Stubees!!</h5><br />Please verify your account by clicking here:<br />".$emailVerificationLink;
 		$fromEmail = "noreply@stubees.com";  //Make it global Variable
 		$fromName = "Stubees";		
@@ -611,46 +683,10 @@ Description        : Inovked when users clicks on the email link he receives to 
 
     	}
     }
-
+	//TEST METHOD
 	public function testingAction(){
-		// print_scr(D, session_id());
-		// $session = new Zend_Session_Namespace();
-		
-		// if(isset($session->name)){
-			// echo "\n DEBUG: Session START: Session name:".$session->name;
-		// } else {
-			// echo "\n DEBUG: Session is set for the first time";
-			// $session->name="ZEND_SESSION";
-		// }
-		// print_scr(D, session_id());
-		// $modname = $this->getRequest()->getModuleName();
-		// echo "module name:".$modname.":";
-		// phpinfo();
-		/* echo "yo";
-		$auth = Zend_Auth::getInstance();
-		$authAdapter = new Zend_Auth_Adapter_DbTable(Zend_Db_Table::getDefaultAdapter()); //Getting an instance
-		$authAdapter->setTablename('tblLogin')
-					->setIdentityColumn('email')
-					->setCredentialColumn('password')
-					->setIdentity('metalsriks@gmail.com')
-					->setCredential('asdasdasd');
-		$result = $auth->authenticate($authAdapter);
-		if($result->isValid()){
-			$storage = new Zend_Auth_Storage_Session();
-			$storage->write($authAdapter->getResultRowObject());
-			// print_scr(D, "authenticated!");
-			echo "authenticated";
-		} else {
-			//$this->view->errorMessage = "Invalid username or password. Please try again.";
-			// print_scr(D, "error authenticating!");
-			echo "error authenticating!";
-		} */
-			session_start();
-if(isset($_SESSION["name"]))
-echo $_SESSION["name"];
-else
-echo "hoges"; 
-		
+	
+	echo getModule();
 	}
 }
 

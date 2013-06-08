@@ -95,4 +95,12 @@ html {
 <?php if($this->goHomeFlag) : ?>
      Your Account is already validated
  <?php endif; ?>
+ 
+ <?php if($this->isValidated) : ?>
+     Your Account is now validated
+ <?php endif; ?>
  </div>
+ 
+ <div id=homediv align="right">
+	<a href="<?php echo $this->url(array('controller' => 'Login', 'action' => 'logout'), null, false)?>"><img height="45" width="45px" src='<?=$this->baseUrl('images/logoutIcon.png')?>' style="text-decoration:none"></img></a>
+</div>

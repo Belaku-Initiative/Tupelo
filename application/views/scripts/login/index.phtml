@@ -201,118 +201,86 @@ $(document).ready(function(){
 	}		
 });
 
-FB.logout(function(response) {
-	alert("Session is destroyed");
-
-});
-FB.login(function(response) {
-   // handle the response
- }, {scope: 'email'});
 </script>
 
+<script>
+	function checkFBLoginStatus() {
+			fbAsyncLoad(document, 'script', 'facebook-jssdk');
+			//window.fbAsyncInit();
+			FB.login(function(response){
+				if(response.authResponse) {
+					document.location="http://stubees.com/popeye/public/Login/fblogin";
+				}
+			},{scope:'email'});
+	}
+</script>
 
-<?php if (!$this->user && !$this->regularUser) { ?>
-<div id=homediv align="right">
-
-	<a href='<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>'><img height="75px" width="75px" src='<?=$this->baseUrl('images/home.jpg')?>' style="text-decoration:none"></img></a>
-</div>
-<div id=centerdiv_login>
-<?php if(isset($this->errorMessage)){ echo $this->errorMessage; }?>
-	<div>
-		<div style="height: 110px; width: 80% ;float: left">
-		<?php echo $this->form; ?>
+<?php if (!$this->fbUser && !$this->regularUser) { ?>
+	<div id=homediv align="right">
+		<a href='<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>'><img height="75px" width="75px" src='<?=$this->baseUrl('images/home.jpg')?>' style="text-decoration:none"></img></a>
+	</div>
+	<div id=centerdiv_login>
+		<?php if(isset($this->errorMessage)){ echo $this->errorMessage; }?>
+		<div>
+			<div style="height: 110px; width: 80% ;float: left">
+			<?php echo $this->form; ?>
+			</div>
+			<div style="height: 110px; width: 15% ;float: left;top:50%;margin:30px 0 0 0;">
+			<center>
+				<a id=fbButton href="<?php echo $this->url(array('controller' => 'Login', 'action' => 'fblogin'), null, false)?>" onclick="checkFBLoginStatus();return false;" style="text-decoration:none"><img height="60px" width="60px" src= '<?=$this->baseUrl('images/fbLogo.png')?>' style="text-decoration:none"></img></a>
+			</center>
+			</div>
 		</div>
-		<div style="height: 110px; width: 15% ;float: left;top:50%;margin:30px 0 0 0;">
-		<center>
-		<a href="" onclick="FB.login(function(response){},{scope:'email'});" style="text-decoration:none"><img height="60px" width="60px" src= '<?=$this->baseUrl('images/fbLogo.png')?>' style="text-decoration:none"></img></a>
-		</center>
+		<div class="btnDiv">
+			<center>
+				<span class="button"> 
+				<a title="Sign Up" href='<?php echo $this->url(array('controller' => 'Login', 'action' => 'signup'), null, false)?>'>
+					New user? Sign up here 
+				</a>
+				</span>
+			</center>
+		</div>
+		<div class="btnDiv">
+			<center>
+				<span class="button"> 
+				<a title="Forgot Password" href='<?php echo $this->url(array('controller' => 'Login', 'action' => 'resetpwd'), null, false)?>'>
+					Forgot Password ? 
+				</a>
+				</span>
+			</center>
 		</div>
 	</div>
-		<div class="btnDiv">
-		<center>
-			<span class="button"> 
-			<a title="Sign Up" href='<?php echo $this->url(array('controller' => 'Login', 'action' => 'signup'), null, false)?>'>
-				New user? Sign up here 
-			</a>
-			</span>
-		</center>
-		</div>
-		
-		<div class="btnDiv">
-		<center>
-			<span class="button"> 
-			<a title="Forgot Password" href='<?php echo $this->url(array('controller' => 'Login', 'action' => 'resetpwd'), null, false)?>'>
-				Forgot Password ? 
-			</a>
-			</span>
-		</center>
-		</div>
-<?php if($this->loginFailed) {?>
-	<div>
-	<font color='red'>Login Failed</font>
-	</div>
 <?php }?>
-
-</div>
-<?php }?>
-<?php if ($this->user) { ?>
+<?php if ($this->fbUser) { ?>
 		<div id=homediv align="right">
 			<a href='<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>'><img height="75px" width="75px" src='<?=$this->baseUrl('images/home.jpg')?>' style="text-decoration:none"></img></a>
 		</div>
 
 		<div id=homediv align="right">
-			<a href="<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>" onclick="FB.logout();"><img height="45" width="45px" src='<?=$this->baseUrl('images/logoutIcon.png')?>' style="text-decoration:none"></img></a>
+			<a href="<?php echo $this->url(array('controller' => 'Login', 'action' => 'logout'), null, false)?>"><img height="45" width="45px" src='<?=$this->baseUrl('images/logoutIcon.png')?>' style="text-decoration:none"></img></a>
 		</div>
+		
 		<div id=centerdiv >
-		<h3>Welcome <?php echo $this->userFirstName ;?> <?php echo $this->userLastName ;?></h3> <br/>
-		<h3>Photo: <img src=<?php echo $this->userPic ;?>></h3>
-		<h3>E-Mail: <?php echo $this->userEMail ;?></h3>
-		<h3>ID: <?php echo $this->userId ;?></h3>
-		<h3>Gender: <?php echo $this->userGender ;?></h3>
-		<pre><?php print_r($this->user_profile); ?></pre>
+			<center>
+				<h3>Welcome Fb User Mr. <?php echo $this->userFirstName ;?> <?php echo $this->userLastName ;?></h3> <br/>
+			</center>
+		</div>
 <?php } elseif ($this->regularUser) { ?>
 		<div id=homediv align="right">
 			<a href='<?php echo $this->url(array('controller' => 'Index', 'action' => 'index'), null, false)?>'><img height="75px" width="75px" src='<?=$this->baseUrl('images/home.jpg')?>' style="text-decoration:none"></img></a>
 		</div>
 
 		<div id=homediv align="right">
-			<a href="<?php echo $this->url(array('controller' => 'Login', 'action' => 'index'), null, false)?>" onclick="FB.logout();"><img height="45" width="45px" src='<?=$this->baseUrl('images/logoutIcon.png')?>' style="text-decoration:none"></img></a>
+			<a href="<?php echo $this->url(array('controller' => 'Login', 'action' => 'logout'), null, false)?>"><img height="45" width="45px" src='<?=$this->baseUrl('images/logoutIcon.png')?>' style="text-decoration:none"></img></a>
 		</div>
 		<div id=centerdiv >
-		<p>WELCOME!!</p>
-		<h3>Welcome <?php echo $this->userFirstName ;?> <?php echo $this->userLastName ;?></h3> <br/>
-		<h3>E-Mail: <?php echo $this->userEMail ;?></h3>
-
+			<center>
+				<h3>Welcome <?php echo $this->userFirstName ;?> <?php echo $this->userLastName ;?></h3> <br/>
+			</center>
+		</div>
 <?php } ?>
-</div>
-<script>
-          window.fbAsyncInit = function() {
-            FB.init({
-              appId      : '343333115786778', // App ID
-              channelUrl : 'http://stubees.com/scooby/public/Index/', // Channel File
-              status     : true, // check login status
-              cookie     : true, // enable cookies to allow the server to access the session
-              xfbml      : true  // parse XFBML
-            });
-	        FB.Event.subscribe('auth.login', function(response) {
-	        	window.location.reload();
-	        });
-	        FB.Event.subscribe('auth.logout', function(response) {
-		    	// window.location.reload();
-		    });
-			
-          };
-          // Load the SDK Asynchronously
-          (function(d, s, id){
-             var js, fjs = d.getElementsByTagName(s)[0];
-             if (d.getElementById(id)) {return;}
-             js = d.createElement(s); js.id = id;
-             js.src = "//connect.facebook.net/en_US/all.js";
-             fjs.parentNode.insertBefore(js, fjs);
-           }(document, 'script', 'facebook-jssdk'));
-        </script>
 
-<div>
+
 <div class="r2Div" style="display: inline-block;">
 <center>
 	<div id="teamMembers">
@@ -326,4 +294,29 @@ FB.login(function(response) {
 </center>
 </div>
 </div>
-
+<script>
+	  window.fbAsyncInit = function() {
+		FB.init({
+		  appId      : '190385524450312', // App ID
+		  channelUrl : 'http://stubees.com/popeye/public/Login/fblogin', // Channel File
+		  status     : true, // check login status
+		  cookie     : true, // enable cookies to allow the server to access the session
+		  xfbml      : true  // parse XFBML
+		});
+		FB.Event.subscribe('auth.login', function(response) {
+			window.location.reload();
+		});
+		FB.Event.subscribe('auth.logout', function(response) {
+			window.location.reload();
+		});
+	  };
+	  // Load the SDK Asynchronously
+	  fbAsyncLoad(document, 'script', 'facebook-jssdk');
+	  function fbAsyncLoad(d, s, id){
+		 var js, fjs = d.getElementsByTagName(s)[0];
+		 if (d.getElementById(id)) {return;}
+		 js = d.createElement(s); js.id = id;
+		 js.src = "//connect.facebook.net/en_US/all.js";
+		 fjs.parentNode.insertBefore(js, fjs);
+	   };
+</script>

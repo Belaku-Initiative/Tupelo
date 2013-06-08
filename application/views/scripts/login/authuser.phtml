@@ -11,7 +11,9 @@ html {
 #homediv{
 	height: 85px; width: 100%; float: right;
 	}
-	
+.btnDiv{
+	height: 100; width: 40%; float: left;
+	}
 #centerdiv {     
 	width:700px;
 	height:250px;
@@ -46,6 +48,32 @@ html {
 	opacity: 0;
 	filter: alpha(opacity=0);
 }
+
+/*Button link styles*/
+		.button a:link, .button a:visited {
+			color: #eee;
+			background-color:#1e5184;
+			font-size:1em;
+			font-weight:bolder;
+			text-decoration: none;
+			border-bottom:0.1em solid #555;
+			border-right:0.1em solid #555;
+			border-top:0.1em solid #ccc;
+			border-left:0.1em solid #ccc;
+			margin: 0.2em;
+			padding:0.2em;
+			display:block;
+		}
+		.button a:hover {
+			background-color:#003366;
+			color:#999;
+			border-top:0.1em solid #777;
+			border-left:0.1em solid #777;
+			border-bottom:0.1em solid #aaa;
+			border-right:0.1em solid #aaa;
+			padding:0.2em;
+			margin: 0.2em;
+		}
 </style>
 
 <div id=homediv align="right">
@@ -53,30 +81,39 @@ html {
 </div>
 
 <div id=centerdiv >
-	<?php if($this->sendValidateEmail) : ?>
-		<center>
-		<p>Welcome to Travel App</p>
-		</center>
-		Your Email is Not validated.<br />
-		<a href='<?php echo $this->url(array('controller' => 'Login', 'action' => 'useremailvalidation'), null, false)?>?uuid=aaa
-		&pid=<?php echo $this->userIndex ?>'>
-		<button type="button"> Resend Email</button></a>
-	<?php endif; ?>
 	<?php if($this->loginFailed) {?>
-	<div>
-		<center>
-			<font color='red'>Login Failed</font>
-		</center>
-	</div>
-<?php }else{ ?>
-		<div id=homediv align="right">
-			<a href="<?php echo $this->url(array('controller' => 'Login', 'action' => 'logout'), null, false)?>"><img height="45" width="45px" src='<?=$this->baseUrl('images/logoutIcon.png')?>' style="text-decoration:none"></img></a>
+		<div>
+			<center>
+				<font color='red'>Login Failed</font>
+			</center>
 		</div>
-		<h3>Welcome <?php echo $this->userFirstName ;?> <?php echo $this->userLastName ;?></h3> <br/>
-		<h3>E-Mail: <?php echo $this->userEMail ;?></h3>
+		</div>
+	<?php }else{ ?>
+			<center>
+			<h3>Welcome <?php echo $this->userFirstName ;?> <?php echo $this->userLastName ;?></h3> <br/>
+			</center>
+			
+			
+	<?php } ?>
 
-<?php } ?>
-</div>
+	<?php if($this->sendValidateEmail) : ?>
+		
+		Your Email is Not validated.<br />
+		<div class="btnDiv">
+			<span class="button"> 
+				<a title="Resend Email" href='<?php echo $this->url(array('controller' => 'Login', 'action' => 'useremailvalidation'), null, false)?>?uuid=aaa&pid=<?php echo $this->userIndex ?>'>
+					 Resend Email
+				</a>
+			</span>
+		</div>	
+	<?php endif; ?>
+	</div>
+	
+	<?php if(!$this->loginFailed) {?>
+	<div id=homediv align="right">
+		<a href="<?php echo $this->url(array('controller' => 'Login', 'action' => 'logout'), null, false)?>"><img height="45" width="45px" src='<?=$this->baseUrl('images/logoutIcon.png')?>' style="text-decoration:none"></img></a>
+	</div>
+	<?php } ?>
 <!-- Setting uuid to aaa so that handling in the action can be easy -->
 
 <div>

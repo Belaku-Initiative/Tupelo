@@ -460,3 +460,164 @@ Stack trace:
 [26-May-2013 13:46:51 America/Denver] PHP Parse error:  syntax error, unexpected ''is_FB_User'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 223
 [26-May-2013 14:21:33 America/Denver] PHP Parse error:  syntax error, unexpected 'button' (T_STRING), expecting ',' or ';' in /home1/stubeesc/public_html/scooby/application/views/scripts/login/resetpwd.phtml on line 92
 [26-May-2013 14:43:50 America/Denver] PHP Parse error:  syntax error, unexpected '<' in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 656
+[26-May-2013 17:13:30 America/Denver] PHP Notice:  Undefined index: email in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 245
+[26-May-2013 17:13:30 America/Denver] PHP Notice:  Undefined index: password in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 269
+[26-May-2013 17:49:51 America/Denver] PHP Parse error:  syntax error, unexpected 'endif' (T_ENDIF) in /home1/stubeesc/public_html/scooby/application/views/scripts/login/authuser.phtml on line 115
+[26-May-2013 18:00:16 America/Denver] PHP Notice:  Undefined index: email in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 256
+[26-May-2013 18:00:16 America/Denver] PHP Notice:  Undefined index: password in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 280
+[26-May-2013 18:03:10 America/Denver] PHP Warning:  Creating default object from empty value in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 162
+[26-May-2013 18:05:16 America/Denver] PHP Warning:  Creating default object from empty value in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 162
+[26-May-2013 18:07:44 America/Denver] PHP Parse error:  syntax error, unexpected 'new' (T_NEW) in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 17
+[26-May-2013 18:10:08 America/Denver] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR), expecting ',' or ';' in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 17
+[26-May-2013 18:39:14 America/Denver] PHP Notice:  Undefined variable: userFirstName in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 109
+[26-May-2013 18:39:14 America/Denver] PHP Notice:  Undefined variable: userLastName in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 110
+[28-May-2013 22:59:53 America/Denver] PHP Notice:  Use of undefined constant facebook - assumed 'facebook' in /home1/stubeesc/public_html/scooby/application/views/scripts/index/index.phtml on line 79
+[28-May-2013 22:59:53 America/Denver] PHP Notice:  Use of undefined constant php - assumed 'php' in /home1/stubeesc/public_html/scooby/application/views/scripts/index/index.phtml on line 79
+[28-May-2013 22:59:53 America/Denver] PHP Warning:  include(facebookphp): failed to open stream: No such file or directory in /home1/stubeesc/public_html/scooby/application/views/scripts/index/index.phtml on line 79
+[28-May-2013 22:59:53 America/Denver] PHP Warning:  include(): Failed opening 'facebookphp' for inclusion (include_path='/home1/stubeesc/public_html/scooby/application/../library:/home1/stubeesc/public_html/scooby/library:.:/usr/php/54/usr/lib64:/usr/php/54/usr/share/pear:/home1/stubeesc/public_html/zf/library') in /home1/stubeesc/public_html/scooby/application/views/scripts/index/index.phtml on line 79
+[28-May-2013 22:59:53 America/Denver] PHP Fatal error:  Class 'Facebook' not found in /home1/stubeesc/public_html/scooby/application/views/scripts/index/index.phtml on line 81
+[28-May-2013 23:01:49 America/Denver] PHP Fatal error:  Call to undefined method Facebook::getSession() in /home1/stubeesc/public_html/scooby/application/views/scripts/index/index.phtml on line 86
+[28-May-2013 23:02:14 America/Denver] PHP Fatal error:  Call to undefined method Facebook::getSession() in /home1/stubeesc/public_html/scooby/application/views/scripts/index/index.phtml on line 86
+[28-May-2013 23:09:47 America/Denver] CSRF state token does not match one provided.
+[28-May-2013 23:09:53 America/Denver] CSRF state token does not match one provided.
+[29-May-2013 01:37:16 America/Denver] CSRF state token does not match one provided.
+[29-May-2013 01:37:16 America/Denver] PHP Notice:  Undefined variable: loginUrl in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 104
+[29-May-2013 01:37:17 America/Denver] PHP Notice:  Undefined index: email in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 113
+[30-May-2013 00:55:14 America/Denver] PHP Parse error:  syntax error, unexpected '$fbUser' (T_VARIABLE) in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 36
+[30-May-2013 00:55:29 America/Denver] PHP Parse error:  syntax error, unexpected '"' in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 36
+[30-May-2013 01:23:13 America/Denver] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR), expecting ',' or ';' in /home1/stubeesc/public_html/scooby/application/views/scripts/login/index.phtml on line 217
+[30-May-2013 01:23:34 America/Denver] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR), expecting ',' or ';' in /home1/stubeesc/public_html/scooby/application/views/scripts/login/index.phtml on line 217
+[01-Jun-2013 03:03:20 America/Denver] PHP Warning:  Missing argument 1 for getForm(), called in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 164 and defined in /home1/stubeesc/public_html/scooby/library/lcfunctions.php on line 18
+[01-Jun-2013 03:03:20 America/Denver] PHP Notice:  Undefined variable: formName in /home1/stubeesc/public_html/scooby/library/lcfunctions.php on line 23
+[01-Jun-2013 03:03:20 America/Denver] PHP Notice:  Undefined variable: form in /home1/stubeesc/public_html/scooby/library/lcfunctions.php on line 27
+[01-Jun-2013 03:03:20 America/Denver] PHP Fatal error:  Call to a member function isValid() on a non-object in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 165
+[01-Jun-2013 03:56:02 America/Denver] PHP Notice:  Undefined variable: facebook in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 84
+[01-Jun-2013 03:56:02 America/Denver] PHP Fatal error:  Call to a member function api() on a non-object in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 84
+[01-Jun-2013 03:58:39 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 112
+[01-Jun-2013 04:02:01 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 113
+[01-Jun-2013 04:08:52 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 04:09:36 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 04:10:42 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 04:11:47 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 04:12:29 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 04:14:02 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 04:15:19 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 04:18:13 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 04:18:41 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 04:18:56 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 04:19:17 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 04:19:33 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 04:23:44 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 04:24:08 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 04:24:49 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 04:26:28 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 04:26:55 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 04:28:58 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 113
+[01-Jun-2013 04:29:22 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 113
+[01-Jun-2013 04:29:42 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 113
+[01-Jun-2013 04:32:13 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 115
+[01-Jun-2013 04:33:10 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 115
+[01-Jun-2013 04:33:44 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 115
+[01-Jun-2013 04:34:18 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 115
+[01-Jun-2013 04:35:12 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 115
+[01-Jun-2013 13:23:48 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 13:24:52 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 13:29:38 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 13:30:59 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 13:31:31 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 114
+[01-Jun-2013 13:51:08 America/Denver] PHP Parse error:  syntax error, unexpected ';' in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 96
+[01-Jun-2013 13:53:11 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 116
+[01-Jun-2013 13:59:13 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 116
+[01-Jun-2013 15:45:52 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 116
+[01-Jun-2013 15:46:38 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 15:47:56 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 15:51:56 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 15:54:18 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 15:55:25 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 15:55:55 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 15:56:28 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 15:56:38 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 16:08:20 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 16:09:37 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 16:11:18 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 16:11:47 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 16:16:05 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 16:16:40 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 16:17:19 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 16:22:48 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 16:28:57 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 16:36:55 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 16:37:58 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 16:38:24 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 16:56:41 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 16:58:13 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 19:26:59 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 19:27:15 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 19:38:33 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 19:39:17 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 19:39:32 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 19:48:19 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 19:51:19 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 19:58:29 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[01-Jun-2013 20:01:05 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 12:41:40 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 12:50:50 America/Denver] PHP Notice:  Undefined property: IndexController::$session in /home1/stubeesc/public_html/scooby/application/controllers/IndexController.php on line 29
+[02-Jun-2013 12:50:50 America/Denver] PHP Notice:  Trying to get property of non-object in /home1/stubeesc/public_html/scooby/application/controllers/IndexController.php on line 29
+[02-Jun-2013 12:50:50 America/Denver] PHP Notice:  Undefined property: IndexController::$session in /home1/stubeesc/public_html/scooby/application/controllers/IndexController.php on line 30
+[02-Jun-2013 12:50:50 America/Denver] PHP Notice:  Trying to get property of non-object in /home1/stubeesc/public_html/scooby/application/controllers/IndexController.php on line 30
+[02-Jun-2013 12:53:07 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 12:53:12 America/Denver] PHP Notice:  Undefined property: IndexController::$session in /home1/stubeesc/public_html/scooby/application/controllers/IndexController.php on line 29
+[02-Jun-2013 12:53:12 America/Denver] PHP Notice:  Trying to get property of non-object in /home1/stubeesc/public_html/scooby/application/controllers/IndexController.php on line 29
+[02-Jun-2013 12:53:12 America/Denver] PHP Notice:  Undefined property: IndexController::$session in /home1/stubeesc/public_html/scooby/application/controllers/IndexController.php on line 30
+[02-Jun-2013 12:53:12 America/Denver] PHP Notice:  Trying to get property of non-object in /home1/stubeesc/public_html/scooby/application/controllers/IndexController.php on line 30
+[02-Jun-2013 12:55:54 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 12:56:09 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 12:58:41 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 12:59:37 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 13:00:50 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 13:01:33 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 13:02:02 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 13:03:05 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 13:08:25 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 13:09:00 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 13:09:59 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 13:10:31 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 13:11:13 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 13:24:12 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 13:25:21 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 13:26:45 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 13:27:15 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 13:28:00 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 13:31:31 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 13:32:35 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 13:33:25 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 13:34:27 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 22:46:26 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 22:47:05 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[02-Jun-2013 22:47:26 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[08-Jun-2013 00:00:41 America/Denver] PHP Notice:  Undefined variable: devloperBranch in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 646
+[08-Jun-2013 00:02:54 America/Denver] PHP Notice:  Undefined property: LoginController::$devloperBranch in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 646
+[08-Jun-2013 00:26:43 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[08-Jun-2013 00:26:52 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[08-Jun-2013 00:41:31 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[08-Jun-2013 00:42:28 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[08-Jun-2013 00:42:46 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/scooby/application/controllers/LoginController.php on line 117
+[08-Jun-2013 01:09:01 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/popeye/application/controllers/LoginController.php on line 117
+[08-Jun-2013 11:54:05 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/popeye/application/controllers/LoginController.php on line 117
+[08-Jun-2013 11:55:19 America/Denver] PHP Notice:  Use of undefined constant email - assumed 'email' in /home1/stubeesc/public_html/popeye/application/controllers/LoginController.php on line 279
+[08-Jun-2013 11:55:19 America/Denver] PHP Notice:  Undefined variable: ifFbUser in /home1/stubeesc/public_html/popeye/library/lcfunctions.php on line 236
+[08-Jun-2013 12:20:18 America/Denver] PHP Parse error:  syntax error, unexpected ')' in /home1/stubeesc/public_html/popeye/application/controllers/LoginController.php on line 310
+[08-Jun-2013 12:20:52 America/Denver] PHP Parse error:  syntax error, unexpected '{' in /home1/stubeesc/public_html/popeye/application/controllers/LoginController.php on line 313
+[08-Jun-2013 12:20:55 America/Denver] PHP Parse error:  syntax error, unexpected '{' in /home1/stubeesc/public_html/popeye/application/controllers/LoginController.php on line 313
+[08-Jun-2013 12:20:56 America/Denver] PHP Parse error:  syntax error, unexpected '{' in /home1/stubeesc/public_html/popeye/application/controllers/LoginController.php on line 313
+[08-Jun-2013 12:21:26 America/Denver] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /home1/stubeesc/public_html/popeye/application/controllers/LoginController.php on line 324
+[08-Jun-2013 12:22:09 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/popeye/application/controllers/LoginController.php on line 117
+[08-Jun-2013 12:23:35 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/popeye/application/controllers/LoginController.php on line 117
+[08-Jun-2013 12:28:12 America/Denver] PHP Notice:  Undefined variable: ifFbUser in /home1/stubeesc/public_html/popeye/library/lcfunctions.php on line 236
+[08-Jun-2013 12:29:13 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/popeye/application/controllers/LoginController.php on line 117
+[08-Jun-2013 12:30:11 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/popeye/application/controllers/LoginController.php on line 117
+[08-Jun-2013 14:19:14 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/popeye/application/controllers/LoginController.php on line 117
+[08-Jun-2013 14:21:58 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/popeye/application/controllers/LoginController.php on line 117
+[08-Jun-2013 15:21:44 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/popeye/application/controllers/LoginController.php on line 117
+[08-Jun-2013 15:22:44 America/Denver] PHP Notice:  Undefined variable: userProfile in /home1/stubeesc/public_html/popeye/application/controllers/LoginController.php on line 117
+[08-Jun-2013 15:29:31 America/Denver] PHP Parse error:  syntax error, unexpected 'Zend_Session' (T_STRING) in /home1/stubeesc/public_html/popeye/application/controllers/IndexController.php on line 11
